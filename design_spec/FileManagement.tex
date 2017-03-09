@@ -1,0 +1,41 @@
+% Maxwell Thornburg
+% March 8th, 2017 
+% Design specs of file management
+
+\documentclass[12pt]{article} 
+ 
+\begin{document} 
+    \section{File Management} 
+        \subsection{Saving} 
+        
+        	\begin{itemize}
+        		\item Grid configurations will be able to be saved locally so they don't have to be recreated every time.
+            \end{itemize}
+            
+            \begin{itemize}
+        		\item Entire animations will be able to be saved locally.
+            \end{itemize}
+            
+        \subsection{Loading} 
+        
+        	\begin{itemize}
+        		\item Audio files will be able to be loaded in so that they can be paired up with the animation.
+            \end{itemize}
+            
+            \begin{itemize}
+        		\item Previously saved animations will be able to be loaded, overwriting the current animation project. A dialog box will
+                	appear to warn the user that they will be overwriting the current animation project.
+        	\end{itemize}
+            
+            \begin{itemize}
+        		\item Grid configurations can be loaded to overwrite a single frame in an animation. This will help prevent re-creation
+                	of frequently used grid configurations.
+        	\end{itemize}
+            
+        \subsection{Auto-save}
+        	\begin{itemize}
+            	\item One file will be kept during the program's operation that will be \newline continuously overridden once every 
+                	five minutes. It will automatically save out the entire animation that is currently being worked on.
+            \end{itemize}
+            
+\end{document} 
