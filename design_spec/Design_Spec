@@ -13,6 +13,7 @@
 \begin{document}
  
  
+
 \bigskip
 
 \clearpage{\centering\selectlanguage{english}\bfseries\color{black}
@@ -79,7 +80,6 @@ TABLE OF CONTENTS
 
 \bigskip
 
-
 \setcounter{tocdepth}{9}
 \renewcommand\contentsname{}
 
@@ -89,7 +89,9 @@ TABLE OF CONTENTS
 
 
 \clearpage\section{General}
-This Design Specification for Goofy Lights Editor overviews the anticipated program functions that will be needed. 
+This Design Specification for Goofy Lights Editor outlines the anticipated program functions that will be needed. 
+
+
 
 \bigskip
 \subsection{Timeline}
@@ -190,22 +192,6 @@ The tower grid dimensions will be 4*10.
 		 \end{itemize}
 	\end{itemize}
 	
-% 	\subsection{Notes}
-% 	\begin{itemize}
-% 		\item 
-% 		\item 
-% 		\item 
-% 	\end{itemize}
-
-\iffalse
-\section{Additional Features}
-	\subsection{Preview Slider} The Preview window will have a "preview area" that shows the timeline of the current show. The preview area will also have a slider which can be dragged back and forth along the timeline to control the preview playback.
-	 \subsection {Sync with Audio}
-		\begin{itemize}
-			\item A simple checkbox to indicate whether the playback will start the designated audio track when the preview playback is started. 
-		\end{itemize}
-
- \fi
  
  \clearpage\section{Stamps}
 	The stamps function will allow the user to access previously saved images in a quick manner. 
@@ -254,9 +240,7 @@ The user will be able to assign color to a square in the current state by left c
 
 \subsection{Preview Slider} The Preview window will have a "preview area" that shows the timeline of the current show. The preview area will also have a slider which can be dragged back and forth along the timeline to control the preview playback.
  \subsection {Sync with Audio}
- 		\begin{itemize}
-			\item A simple checkbox to indicate whether the playback will start the designated audio track when the preview playback is started. 
-		\end{itemize}
+			 A simple checkbox to indicate whether the playback will start the designated audio track when the preview playback is started. 
 
 \subsection{Paint Brush Coloring}
 The user will be able to hold left click and drag their mouse over squares. This will paint all the squares it touches. The user can also hold right click to erase the squares.
