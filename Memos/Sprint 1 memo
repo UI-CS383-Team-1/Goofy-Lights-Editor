@@ -1,0 +1,40 @@
+\documentclass[12pt, oneside]{article}   	
+\usepackage{geometry}                		
+\geometry{letterpaper}                   		
+\usepackage{graphicx}			
+\usepackage{amssymb}
+
+
+\begin{document}
+
+
+{\bf To} Bruce Bolden
+
+{\bf From}  Team 1
+
+{\bf Subject} Sprint 1
+
+{\bf Date} 03/30/17
+
+\subsubsection*{Introduction}
+
+\subsubsection*{Overview}
+
+\begin{description}
+\item
+ \underline {UI shell - Max and Tim}\\
+	Uploaded the template for the rest of the teams to work from. The UI shell consisted of blank spaces to be fitted later with the other teams's individual pieces. \\ A space for elements that we haven't started were also included, such as a space for a color wheel and components to ajust the playtime and duration of the show.
+\item
+ \underline {File Save/load - Garret and Wyatt}\\
+ \item
+\underline {Grid - Homaja and Sam}\\
+ \item
+\underline {State changer - Hanna and Josh}\\
+\end{description}
+
+\subsubsection*{Summary}
+
+\subsubsection*{Appendix}
+
+
+\end{document}  
