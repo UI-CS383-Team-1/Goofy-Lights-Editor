@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-%\usepackage[latin1]{inputenc}
+\usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage{amsmath}
@@ -26,7 +26,7 @@ DESIGN SPECIFICATION FOR
 
  \bigskip
 {\centering\selectlanguage{english}\bfseries\color{black}
-Date: 03/09/17
+Date: 03/30/17
 \par}
 
 
@@ -49,6 +49,7 @@ Bruce Bolden
 \fi
 {\centering\selectlanguage{english}\bfseries\color{black}
 Prepared by:
+\\Team 1
 \par}
 
 \bigskip
@@ -92,7 +93,6 @@ TABLE OF CONTENTS
 This Design Specification for Goofy Lights Editor outlines the anticipated program functions that will be needed. 
 
 
-
 \bigskip
 \subsection{Timeline}
 This timeline is a rough estimate for the future development of the Goofy Lights Editor Project for the Goofy Glasses.\ The timeline will be subject to change over time.
@@ -103,13 +103,13 @@ Week One (3/6 - 3/13) - Complete rough draft of Design Specification.
 \item
 Week Two (3/13 - 3/20) - Spring Break 
 \item
-Week Three (3/20 - 3/27) - Initial Development: Sections of the editor divided amongst team members. The separated program functions are : Edit show, Test show, File management, and Audio. 
+Week Three (3/20 - 3/27) - Initial Development (First Sprint): Sections of the editor were divided amongst team members. The sections were divided into: User Interface Shell - Max and Tim, File Save/load - Garret and Wyatt, Grid - Homaja and Sam, State changer - Hanna and Josh.
 \item
-Week Four (3/27 - 4/3) - Continued Development: Continue developing the individual parts. Keep documentation up to date.
+Week Four (3/27 - 4/3) - Continued Development: Each sub-team continues developing their individual section.  Keep documentation up to date.
 \item
-Week Five (4/3 - 4/10) - Continued Development: Build-in user interface using Qt.
+Week Five (4/3 - 4/10) - Continued Development: Complete build-in user interface using Qt by bringing all of the pieces together.
 \item
-Week Six (4/10 - 4/17) - Continued Development: Complete main program by bringing all of the pieces together.
+Week Six (4/10 - 4/17) - Continued Development: Add in extra developments, such as; color wheel, synced audio, etc...
 \item
 Week Seven 4/17 - 4/24) - Continued Development: Finish the previous sprint and put the pieces into a prototype for presentation..
 \item
@@ -156,17 +156,17 @@ Week Nine (5/1 - 5/8) - Finish Development: Have the final program with full doc
  
  
 \clearpage \section{Goto State}
-The user will be able to move to any state.
+The user will be able to scroll through any of the existing states, as well as adding to or deleting any of the current states.
 \subsection{Move Slider}
 Will set slider to go to any state at that particular point of time. The slider maximum time will be set to the total time it takes for all the frames.
 \subsection{State time}
-Will give option for the user to select how long the state should play. If user doesn't provide any value, then the default time the state stays would be set to 1 second.
+Will give option for the user to select how long the state should play and give the option to speed up the runtime. If user doesn't provide any value, then the default time the state stays would be set to 1 second.
 \section{Dimensions}
-This section contains dimensions for grid and tower.
+This section contains dimensions for the adjustable grid.% and tower.
 \subsection{Grid}
-There will be an option for user to select the grid dimensions and the condition would be set to provide the dimensions greater than tower grid. If the user doesn't provide dimensions, then the default would be set to 15*15.
-\subsection{Tower}
-The tower grid dimensions will be 4*10.
+There will be an option for user to select the grid dimensions and the condition would be set to provide the dimensions greater than tower grid. If the user doesn't provide dimensions, then the default would be set to 20*10.
+%\subsection{Tower}
+%The tower grid dimensions will be 4*10.
  
  
  	\clearpage\section{Show Preview}
