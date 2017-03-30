@@ -125,11 +125,11 @@ Week Nine (5/1 - 5/8) - Finish Development: Have the final program with full doc
         \subsection{Saving} 
         
         	\begin{itemize}
-        		\item Grid configurations will be able to be saved locally so they don't have to be recreated every time.
+        		\item Grid configurations can be able to be saved locally so they don't have to be recreated every time.
             \end{itemize}
             
             \begin{itemize}
-        		\item Entire animations will be able to be saved locally.
+        		\item Entire animations can be able to be saved locally.
             \end{itemize}
             
         \subsection{Loading} 
@@ -139,7 +139,7 @@ Week Nine (5/1 - 5/8) - Finish Development: Have the final program with full doc
             \end{itemize}
             
             \begin{itemize}
-        		\item Previously saved animations will be able to be loaded, overwriting the current animation project. A dialog box will
+        		\item Previously saved animations can be able to be loaded, overwriting the current animation project. A dialog box will
                 	appear to warn the user that they will be overwriting the current animation project.
         	\end{itemize}
             
@@ -156,7 +156,7 @@ Week Nine (5/1 - 5/8) - Finish Development: Have the final program with full doc
  
  
 \clearpage \section{Goto State}
-The user will be able to scroll through any of the existing states, as well as adding to or deleting any of the current states.
+The user will be able to scroll through any of the existing states, as well as add to or delete any of the current states.
 \subsection{Move Slider}
 Will set slider to go to any state at that particular point of time. The slider maximum time will be set to the total time it takes for all the frames.
 \subsection{State time}
@@ -184,28 +184,34 @@ There will be an option for user to select the grid dimensions and the condition
 		\begin{itemize}
 		    \item The playback grid will default to whatever size the user initially set their show to. But there will be a way (inputs for number of rows and number of columns) for the user to change the grid size so they can see what their show might look like on smaller or larger grids.
 		\end{itemize}
+		\item Move Tiles
+			\begin{itemize}
+				\item A control box which allows the user to shift their grid size (if smaller that the full 20x10 grid) around the main grid.
+			\end{itemize}
 			\item Manage Preview Playback
 		 \begin{itemize}
 		     \item Start\textbackslash Pause : The traditional Play triangle and double-bars Pause button to start and pause the preview playback.
-		     \item Adjust playback speed : A few playback speed presets (0.5x 0.75x, 1x, 1.25x, 1.5x), default is 1x speed.
 		     \item Stop : Traditional Stop button with square icon to stop the preview playback.
+		       \item Adjust playback speed : A few playback speed presets (0.25x, 0.5x 0.75x, 1x, 1.25x, 1.5x, 1.75x), default is 1x speed.
+		       \item Quit : Allows the user to exit the program
+		       \item Add Frame : The user can add individual frames.
+		       \item Delete Frame : Lets the user delete frames.
 		 \end{itemize}
 	\end{itemize}
 	
  
  \clearpage\section{Stamps}
 	The stamps function will allow the user to access previously saved images in a quick manner. 
-
 	
 	\subsection{Functionality}
-	When clicking on the "stamps" icon, a box will pop up with different previously saved stamps. The user       will then click on one and it will be added to the current frame. Preset stamps include:
+	When clicking on the "stamps" icon, a box will pop up with different previously saved stamps. The user will then click on one and it will be added to the current frame. Preset stamps include:
       \begin{itemize}
         \item Shapes
         \item Letters
         \item Numbers
       \end{itemize}
    \subsection{Creating Stamps}
-   The user will also be able to add stamps to the program. A "save as stamp" option will be added to the      tool bar. This allows for the current frame to be added to the stamp feature.
+   The user will also be able to add stamps to the program. A "save as stamp" option will be added to the tool bar. This allows for the current frame to be added to the stamp feature.
 	
 	
 	  \clearpage\section{Mass Editing}
@@ -226,7 +232,7 @@ There will be an option for user to select the grid dimensions and the condition
  
  
 \clearpage\section{Color Editor}
-The user will have the ability to select any color from the color wheel. He can also select from an preset selection of common colors.
+The user can also select from an preset selection of common colors  and assign it to a cell. He will also be able to  select any color from the a color wheel.
 \subsection{Color Selection}
 There will be two modes of color selection: the color wheel, and a list of color presets.
 \subsubsection{Color Wheel}
@@ -238,6 +244,7 @@ The user will be able to assign color to a square in the current state by left c
 
 \clearpage\section{Additional Features}
 
+\subsection{Add-Ons to File Saving} A parser and IO system for the file saving will be added at a later time.
 \subsection{Preview Slider} The Preview window will have a "preview area" that shows the timeline of the current show. The preview area will also have a slider which can be dragged back and forth along the timeline to control the preview playback.
  \subsection {Sync with Audio}
 			 A simple checkbox to indicate whether the playback will start the designated audio track when the preview playback is started. 
