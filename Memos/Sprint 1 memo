@@ -50,5 +50,31 @@
 Sample Picture:\\
 \includegraphics[scale=0.75]{Delivery1.PNG}
 
+\bigskip
+\subsection*{Timeline}
+This timeline is a rough estimate for the future development of the Goofy Lights Editor Project for the Goofy Glasses.\ The timeline will be subject to change over time.
+
+\begin{itemize}
+\item
+Week One (3/6 - 3/13) - Complete rough draft of Design Specification. 
+\item
+Week Two (3/13 - 3/20) - Spring Break 
+\item
+Week Three (3/20 - 3/27) - Initial Development (First Sprint): Sections of the editor were divided amongst team members. The sections were divided into: User Interface Shell - Max and Tim, File Save/load - Garret and Wyatt, Grid - Homaja and Sam, State changer - Hanna and Josh.
+\item
+Week Four (3/27 - 4/3) - Continued Development: Each sub-team continues developing their individual section.  Keep documentation up to date.
+\item
+Week Five (4/3 - 4/10) - Continued Development: Complete built-in user interface using Qt by bringing all of the pieces together.
+\item
+Week Six (4/10 - 4/17) - Continued Development: Add in extra developments, such as; color wheel, synced audio, etc...
+\item
+Week Seven 4/17 - 4/24) - Continued Development: Finish the previous sprint and put the pieces into a prototype for presentation..
+\item
+Week Eight (4/24 - 5/1) - Continued Development: Present the prototype and update all documentation. 
+\item
+Week Nine (5/1 - 5/8) - Finish Development: Have the final program with full documentation, run final testing, and turn in project.
+
+
+\end{itemize}
 
 \end{document}  
