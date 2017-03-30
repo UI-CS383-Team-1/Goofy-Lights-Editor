@@ -4,7 +4,6 @@
 \usepackage{graphicx}			
 \usepackage{amssymb}
 
-
 \begin{document}
 
 
@@ -14,9 +13,10 @@
 
 {\bf Subject} Sprint 1
 
-{\bf Date} 03/30/17
+{\bf Date} March 30, 2017
 
 \subsubsection*{Introduction}
+	This was the first sprint of our development. We strove to build a basic prototype and learn Qt. We broke into groups of two.
 
 \subsubsection*{Overview}
 
@@ -38,11 +38,17 @@
 	date.
  \item
 \underline {State changer - Hanna and Josh}\\
+	We were in charge of creating a list of frames on the back end. This allows users to create states and save them to the end of the animation. It also allows them to remove the last made animation and update the current grid shown.
+ \item
+\underline{Bits and Pieces}\\
+	Near the end of the sprint, we added a few features. These features were: assigning a selected color to a cell; selecting different colors; and rudimentary file saving. 
 \end{description}
 
 \subsubsection*{Summary}
-
+	In the end, we built an almost complete prototype except for loading from a file. We setup a place to collect Qt tutorials that proved immensely useful during development. 
 \subsubsection*{Appendix}
+Sample Picture:\\
+\includegraphics[scale=0.75]{Delivery1.PNG}
 
 
 \end{document}  
