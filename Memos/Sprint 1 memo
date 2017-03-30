@@ -29,8 +29,13 @@
 	and components to adjust the playtime and duration of the show.
 \item
  \underline {File Save/load - Garret and Wyatt}\\
+ 	Added file browsers to the Load, Save as, and Export buttons that save the path selected into a string for use in opening,
+	saving, and exporting projects. A parser and file IO system will be added later.
  \item
 \underline {Grid - Homaja and Sam}\\
+	We were primarily incharge of creating the frame and the class for the individual cells. Homaja created the class for the cell
+	while Sam made the basic framework. The frame is at a basic state which does not support frames but this will be added at a later
+	date.
  \item
 \underline {State changer - Hanna and Josh}\\
 \end{description}
