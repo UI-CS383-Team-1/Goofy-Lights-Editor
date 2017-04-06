@@ -57,6 +57,8 @@ private:
     QGridLayout *mainFrame;
     rgb mainGrid[10][20];
     int currentAnimation = 0;
+    QHBoxLayout *animationLayout;
+    QWidget *animationFrame;
 };
 
 #endif // MAINWINDOW_H

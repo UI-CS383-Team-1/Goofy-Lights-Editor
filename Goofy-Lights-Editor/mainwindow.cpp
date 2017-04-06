@@ -9,6 +9,10 @@
 #include <QDebug>
 #include <QColorDialog>
 #include <iostream>
+#include <QSpacerItem>
+#include <QtCore>
+#include <QRect>
+#include <QScrollArea>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -42,6 +46,24 @@ MainWindow::MainWindow(QWidget *parent) :
     mainFrame = new QGridLayout;
     QSizePolicy *policy = new QSizePolicy(QSizePolicy::Preferred,QSizePolicy::Preferred);
     policy->setHeightForWidth(true);
+    mainFrame->setHorizontalSpacing(0);
+    mainFrame->setVerticalSpacing(0);
+
+    //Build animation scroll area
+    animationFrame = new QWidget;
+    QScrollArea *scroll = ui->animationArea;
+    animationLayout = new QHBoxLayout(animationFrame);
+    scroll->setWidget(animationFrame);
+    scroll->setWidgetResizable(true);
+
+    int i = 0;
+    while(i<1){
+        //Code in here decides what widgit is added to the scroll.
+        //This should be set to the animation vector.
+        QPushButton *tmp = new QPushButton;
+        animationLayout->addWidget(tmp);
+        i++;
+     }
 
     /* creating grid size as 10*20 */
     for(int i = 0; i < 10; i++)
@@ -60,7 +82,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     /*setting the color of the Buttons in the grid as gray*/
-    w->setStyleSheet("QPushButton {background-color: gray;"
+    w->setStyleSheet("QPushButton {background-color: #bbbbbb;"
                      "border-style: outset;"
                      "border-width: 1px;"
                      "border-color: beige; }");
@@ -206,6 +228,8 @@ void MainWindow::on_AddFrameButton_clicked()
     }
 
     animation.push_back(temp);
+    QPushButton *button = new QPushButton(QString::number(currentAnimation));
+    animationLayout->addWidget(button);
     currentAnimation++;
 }
 
@@ -227,6 +251,10 @@ void MainWindow::on_DeleteFrameButton_clicked()
                 mainFrame->itemAtPosition(r, c)->widget()->setStyleSheet(qss);
             }
         }
+        QWidget *tmp = animationLayout->itemAt(1)->widget();
+        animationLayout->removeWidget(animationLayout->itemAt(1)->widget());
+        delete tmp;
+        animationFrame->update();
     }
 }
 
