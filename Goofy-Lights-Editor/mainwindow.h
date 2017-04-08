@@ -39,6 +39,8 @@ private slots:
 
     void assignColor();
 
+    void createGrid(QWidget *w, QGridLayout *frame, bool active);
+
     void on_pushButton_8_clicked();
 
 private:
