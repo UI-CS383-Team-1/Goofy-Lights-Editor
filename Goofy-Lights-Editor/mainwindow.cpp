@@ -181,7 +181,36 @@ void MainWindow::on_actionQuit_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
+    if(save_location=="\0")
+        on_actionSave_As_triggered();
+    else{
+        QFile file(save_location);
+        if(!file.open(QIODevice::WriteOnly)){
+            QMessageBox::information(this, tr("Error"), file.errorString());
+            return;
+        }
+        else{
 
+            //Write file *phew*
+            for(unsigned int i = 0; i < animation.size(); i++){
+                file.write(std::to_string(animation[i].time).c_str());
+                file.write("\n");
+                for(int r = 0; r < 10; r++){
+                    for(int c = 0; c < 20; c++){
+                        //Write rgb into file
+                        file.write(std::to_string(animation[i].frame[r][c].r).c_str());
+                        file.write(" ");
+                        file.write(std::to_string(animation[i].frame[r][c].g).c_str());
+                        file.write(" ");
+                        file.write(std::to_string(animation[i].frame[r][c].b).c_str());
+                        file.write(" ");
+                    }
+                    file.write("\n");
+                }
+            }
+        }
+
+    }
 }
 
 void MainWindow::on_actionSave_As_triggered()
@@ -199,6 +228,7 @@ void MainWindow::on_actionSave_As_triggered()
             return;
         }
         else{
+
             //Write file *phew*
             for(unsigned int i = 0; i < animation.size(); i++){
                 file.write(std::to_string(animation[i].time).c_str());
@@ -219,7 +249,8 @@ void MainWindow::on_actionSave_As_triggered()
         }
     }
 
-    QMessageBox::information(this,tr("File Name"),filename);
+ //   QMessageBox::information(this,tr("File Name"),filename);
+    save_location=filename;
 
 }
 
@@ -239,7 +270,45 @@ void MainWindow::on_actionExport_triggered()
                         tr("Export Project"),
                         QDir::homePath(),
                         "TAN file (*.tan)");
-    QMessageBox::information(this,tr("File Name"),filename);
+//    QMessageBox::information(this,tr("File Name"),filename);
+
+    if(filename.isEmpty()) return;
+    else{
+        QFile file(filename);
+        if(!file.open(QIODevice::WriteOnly)){
+            QMessageBox::information(this, tr("Error"), file.errorString());
+            return;
+        }
+        else{
+            file.write("0.3\n");
+            file.write("NoAudioFile");  //temorary will add string variable to hold audio file name later
+            file.write("\n");
+            file.write(std::to_string(animation.size()).c_str());
+            file.write(" ");
+            file.write(std::to_string(StopR-StartR).c_str());
+            file.write(" ");
+            file.write(std::to_string(StopC-StartC).c_str());
+            file.write("\n");
+            for(int i = 0; i < animation.size(); i++){
+                file.write(std::to_string(animation[i].time).c_str());  //this will probably be changed later to QTime::toString
+                file.write("\n");                                       //and the time variable in the animation struct changed to
+                                                                        //a QTime object for proper file output
+
+                for(int r = StartR; r < StopR; r++){                            //these hard coded numbers will be changed later
+                    for(int c = StartC; c < StopC; c++){                        //when working grid size is added
+                        //Write rgb into file
+                        file.write(std::to_string(animation[i].frame[r][c].r).c_str());
+                        file.write(" ");
+                        file.write(std::to_string(animation[i].frame[r][c].g).c_str());
+                        file.write(" ");
+                        file.write(std::to_string(animation[i].frame[r][c].b).c_str());
+                        file.write(" ");
+                    }
+                    file.write("\n");
+                }
+            }
+        }
+    }
 
 
 }
@@ -374,3 +443,5 @@ void MainWindow::on_pushButton_8_clicked()
 {
     currentColor = QColorDialog::getColor(Qt::white, this);
 }
+
+

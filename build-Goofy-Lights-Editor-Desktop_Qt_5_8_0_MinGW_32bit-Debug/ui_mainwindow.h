@@ -21,11 +21,11 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QScrollBar>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTableView>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -40,10 +40,6 @@ public:
     QAction *actionQuit;
     QAction *actionExport;
     QWidget *centralWidget;
-    QWidget *gridLayoutWidget;
-    QGridLayout *gridLayout;
-    QTextBrowser *textBrowser_2;
-    QTableView *tableView;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
     QComboBox *comboBox;
@@ -60,7 +56,14 @@ public:
     QPushButton *pushButton_7;
     QLabel *label_4;
     QPushButton *pushButton_3;
-    QScrollBar *horizontalScrollBar;
+    QPushButton *AddFrameButton;
+    QPushButton *pushButton_9;
+    QPushButton *DeleteFrameButton;
+    QWidget *GridWidget;
+    QPushButton *pushButton_8;
+    QScrollArea *animationArea;
+    QWidget *scrollAreaWidgetContents;
+    QVBoxLayout *verticalLayout;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QToolBar *mainToolBar;
@@ -70,7 +73,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(742, 457);
+        MainWindow->resize(748, 528);
         actionSave = new QAction(MainWindow);
         actionSave->setObjectName(QStringLiteral("actionSave"));
         actionSave_As = new QAction(MainWindow);
@@ -85,31 +88,15 @@ public:
         actionExport->setObjectName(QStringLiteral("actionExport"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        gridLayoutWidget = new QWidget(centralWidget);
-        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(122, 20, 401, 211));
-        gridLayout = new QGridLayout(gridLayoutWidget);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        textBrowser_2 = new QTextBrowser(gridLayoutWidget);
-        textBrowser_2->setObjectName(QStringLiteral("textBrowser_2"));
-
-        gridLayout->addWidget(textBrowser_2, 0, 0, 1, 1);
-
-        tableView = new QTableView(centralWidget);
-        tableView->setObjectName(QStringLiteral("tableView"));
-        tableView->setGeometry(QRect(10, 250, 621, 61));
         pushButton = new QPushButton(centralWidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(110, 350, 100, 30));
+        pushButton->setGeometry(QRect(110, 420, 100, 30));
         pushButton_2 = new QPushButton(centralWidget);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(210, 350, 100, 30));
+        pushButton_2->setGeometry(QRect(210, 420, 100, 30));
         comboBox = new QComboBox(centralWidget);
         comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setGeometry(QRect(310, 351, 100, 28));
+        comboBox->setGeometry(QRect(310, 421, 100, 28));
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setGeometry(QRect(240, 0, 91, 17));
@@ -165,15 +152,60 @@ public:
         label_4->setAlignment(Qt::AlignCenter);
         pushButton_3 = new QPushButton(centralWidget);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setGeometry(QRect(410, 350, 100, 30));
-        horizontalScrollBar = new QScrollBar(centralWidget);
-        horizontalScrollBar->setObjectName(QStringLiteral("horizontalScrollBar"));
-        horizontalScrollBar->setGeometry(QRect(10, 320, 621, 20));
-        horizontalScrollBar->setOrientation(Qt::Horizontal);
+        pushButton_3->setGeometry(QRect(410, 420, 100, 30));
+        AddFrameButton = new QPushButton(centralWidget);
+        AddFrameButton->setObjectName(QStringLiteral("AddFrameButton"));
+        AddFrameButton->setGeometry(QRect(510, 420, 81, 31));
+        pushButton_9 = new QPushButton(centralWidget);
+        pushButton_9->setObjectName(QStringLiteral("pushButton_9"));
+        pushButton_9->setGeometry(QRect(320, 450, 75, 23));
+        DeleteFrameButton = new QPushButton(centralWidget);
+        DeleteFrameButton->setObjectName(QStringLiteral("DeleteFrameButton"));
+        DeleteFrameButton->setGeometry(QRect(590, 420, 81, 31));
+        GridWidget = new QWidget(centralWidget);
+        GridWidget->setObjectName(QStringLiteral("GridWidget"));
+        GridWidget->setGeometry(QRect(130, 20, 391, 211));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(GridWidget->sizePolicy().hasHeightForWidth());
+        GridWidget->setSizePolicy(sizePolicy);
+        pushButton_8 = new QPushButton(centralWidget);
+        pushButton_8->setObjectName(QStringLiteral("pushButton_8"));
+        pushButton_8->setGeometry(QRect(10, 420, 75, 23));
+        animationArea = new QScrollArea(centralWidget);
+        animationArea->setObjectName(QStringLiteral("animationArea"));
+        animationArea->setGeometry(QRect(10, 240, 660, 161));
+        animationArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        animationArea->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+        animationArea->setWidgetResizable(true);
+        scrollAreaWidgetContents = new QWidget();
+        scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 658, 159));
+        verticalLayout = new QVBoxLayout(scrollAreaWidgetContents);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        animationArea->setWidget(scrollAreaWidgetContents);
         MainWindow->setCentralWidget(centralWidget);
+        pushButton->raise();
+        pushButton_2->raise();
+        comboBox->raise();
+        label_3->raise();
+        gridLayoutWidget_7->raise();
+        label_2->raise();
+        gridLayoutWidget_8->raise();
+        label_4->raise();
+        pushButton_3->raise();
+        AddFrameButton->raise();
+        pushButton_9->raise();
+        DeleteFrameButton->raise();
+        GridWidget->raise();
+        pushButton_8->raise();
+        animationArea->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 742, 21));
+        menuBar->setGeometry(QRect(0, 0, 748, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
@@ -207,11 +239,6 @@ public:
         actionNew->setText(QApplication::translate("MainWindow", "New Show", Q_NULLPTR));
         actionQuit->setText(QApplication::translate("MainWindow", "Quit", Q_NULLPTR));
         actionExport->setText(QApplication::translate("MainWindow", "Export", Q_NULLPTR));
-        textBrowser_2->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Future location of main grid.</p></body></html>", Q_NULLPTR));
         pushButton->setText(QApplication::translate("MainWindow", "Play/Pause", Q_NULLPTR));
         pushButton_2->setText(QApplication::translate("MainWindow", "Stop", Q_NULLPTR));
         comboBox->clear();
@@ -237,6 +264,13 @@ public:
         pushButton_7->setText(QApplication::translate("MainWindow", "Right", Q_NULLPTR));
         label_4->setText(QApplication::translate("MainWindow", "Move Tiles", Q_NULLPTR));
         pushButton_3->setText(QApplication::translate("MainWindow", "Quit", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        AddFrameButton->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Add a frame to the end of the animation</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        AddFrameButton->setText(QApplication::translate("MainWindow", "Add Frame", Q_NULLPTR));
+        pushButton_9->setText(QApplication::translate("MainWindow", "test", Q_NULLPTR));
+        DeleteFrameButton->setText(QApplication::translate("MainWindow", "Delete Frame", Q_NULLPTR));
+        pushButton_8->setText(QApplication::translate("MainWindow", "Change Color", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
     } // retranslateUi
 

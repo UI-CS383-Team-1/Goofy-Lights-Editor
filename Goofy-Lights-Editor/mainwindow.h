@@ -5,7 +5,8 @@
 #include <QGridLayout>
 #include <QPushButton>
 #include <vector>
-
+#include <QString>
+#include <QFile>
 namespace Ui {
 class MainWindow;
 }
@@ -17,6 +18,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
 
 private slots:
     void on_pushButton_3_clicked();
@@ -43,6 +45,8 @@ private slots:
 
     void on_pushButton_8_clicked();
 
+
+
 private:
     struct rgb{
         int r, g, b;
@@ -61,6 +65,11 @@ private:
     int currentAnimation = 0;
     QHBoxLayout *animationLayout;
     QWidget *animationFrame;
+    int StartC=0;                   //Variables for teh start and stop point of the .tan working space
+    int StopC=20;                   //currently hard coded for testing export function but will be variable
+    int StartR=0;                   //when working space is added
+    int StopR=10;
+    QString save_location = "\0";
 };
 
 #endif // MAINWINDOW_H
