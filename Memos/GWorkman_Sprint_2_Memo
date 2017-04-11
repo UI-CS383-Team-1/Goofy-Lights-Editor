@@ -1,0 +1,36 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{graphicx}
+	\addtolength{\oddsidemargin}{-.875in}
+	\addtolength{\evensidemargin}{-.875in}
+	\addtolength{\textwidth}{1.75in}
+
+	\addtolength{\topmargin}{-.875in}
+	\addtolength{\textheight}{1.75in}
+
+\begin{document}
+
+\hfill\break
+\textbf{To} Bruce Bolden\\
+\textbf{From} Garrett Workman\\
+\textbf{Subject} Summary of personal sprint 2 work\\
+
+\section*{Introduction}
+{\Large For this sprint I finished work on the save, save as, and export functions}
+
+
+\section*{Summary}
+{\Large In this sprint I added the function to export a project into the .tan file type that was specified by Professor Rinker. I also added functinallity to the save and save as functions that will save the current project into a .gle (goofy lights editor) file. I made it so if save is selected before any save as and the file wasn't loaded from a previous project it will instead open the save as dialogue. I left space in the save functions to later have other possible additions for information that needs to be saved to later re-load the project}
+
+
+
+
+
+\section*{Appendics}
+{\Large An issue that I found arose during this sprint is multiple people with some of the same parts leads to an interesting issue where things will need to be manually changed. Because of this my contribution to sprint 2 wasn't able to be added to the master and instead will be saved in a branch to be alter integrated into master.}\\
+ 
+
+
+
+\end{document}
