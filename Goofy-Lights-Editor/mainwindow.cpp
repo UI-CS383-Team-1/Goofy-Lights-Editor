@@ -24,15 +24,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->comboBox->setCurrentIndex(3);
 
+    /* creating grid size with default 10*20 */
+    grid = new Grid();
+
     //Clear main grid
     state initFrame;
     rgb blank;
-    blank.r = 0;
-    blank.g = 0;
-    blank.b = 0;
-    for(int r = 0; r < 10; r++){
-        for(int c = 0; c < 20; c++){
-            mainGrid[r][c] = blank;
+    blank.r = 128;
+    blank.g = 128;
+    blank.b = 128;
+    grid->setAllCellColor(QColor(128,128,128));
+    for(int r = 0; r < grid->getGridRowCount(); r++){
+        for(int c = 0; c < grid->getGridColumnCount(); c++){
             initFrame.frame[r][c] = blank;
         }
     }
@@ -76,17 +79,22 @@ void MainWindow::createGrid(QWidget *w, QGridLayout *frame, bool active){
     QSizePolicy *policy = new QSizePolicy(QSizePolicy::Preferred,QSizePolicy::Preferred);
     policy->setHeightForWidth(true);
 
+
     //Remove spacing between buttons
     frame->setHorizontalSpacing(0);
     frame->setVerticalSpacing(0);
-
-    /* creating grid size as 10*20 */
-    for(int i = 0; i < 10; i++)
+  
+    for(int i = 0; i < grid->getGridRowCount(); i++)
     {
-        for(int j = 0; j < 20; j++)
+        for(int j = 0; j < grid->getGridColumnCount(); j++)
         {
+            //Creating a push button
             QPushButton *tmp = new QPushButton;
 
+            //Assigning the color to grid cell and size
+            QColor cellColor = grid->getCellColor(i,j);
+            QString qss = QString("background-color: %1").arg(cellColor.name());
+            tmp->setStyleSheet(qss);
             tmp->setSizePolicy(*policy);
 
             if(active)
@@ -100,7 +108,7 @@ void MainWindow::createGrid(QWidget *w, QGridLayout *frame, bool active){
 
     w->setStyleSheet("QPushButton {background-color: #bbbbbb;"
                      "border-style: outset;"
-                     "border-width: 1px;"
+                     "border-width: 0.2px;"
                      "border-color: beige; }");
 
     w->setLayout(frame);
@@ -122,7 +130,8 @@ void MainWindow::assignColor(){
     color.r = currentColor.red();
     color.g = currentColor.green();
     color.b = currentColor.blue();
-    mainGrid[x][y] = color;
+
+    grid->cellColors[x][y] = currentColor;
 
     //and current animation frame
     animation[currentAnimation].frame[x][y] = color;
@@ -143,8 +152,6 @@ void MainWindow::assignColor(){
 
          }
     }
-
-
 }
 
 void MainWindow::on_pushButton_3_clicked()
@@ -181,8 +188,8 @@ void MainWindow::on_actionSave_As_triggered()
             for(unsigned int i = 0; i < animation.size(); i++){
                 file.write(std::to_string(animation[i].time).c_str());
                 file.write("\n");
-                for(int r = 0; r < 10; r++){
-                    for(int c = 0; c < 20; c++){
+                for(int r = 0; r < grid->getGridRowCount(); r++){
+                    for(int c = 0; c < grid->getGridColumnCount(); c++){
                         //Write rgb into file
                         file.write(std::to_string(animation[i].frame[r][c].r).c_str());
                         file.write(" ");
@@ -228,8 +235,8 @@ void MainWindow::on_pushButton_9_clicked()
     QMessageBox::information(this, "Info", "Hello");
     for(unsigned int i = 0; i < animation.size(); i++){
         std::cout << "Time stamp: " << animation[i].time << std::endl;
-        for(int r = 0; r < 10; r++){
-            for(int c = 0; c < 20; c++){
+        for(int r = 0; r < grid->getGridRowCount(); r++){
+            for(int c = 0; c < grid->getGridColumnCount(); c++){
                 std::cout << animation[i].frame[r][c].r << " " << animation[i].frame[r][c].g << " " << animation[i].frame[r][c].b << " ";
             }
             std::cout << std::endl;
@@ -250,9 +257,13 @@ void MainWindow::on_AddFrameButton_clicked()
     //Create new state to add to the animation
     state temp;
     temp.time = animation.size() * 5;
-    for(int r = 0; r < 10; r++){
-        for(int c = 0; c < 20; c++){
-            temp.frame[r][c] = mainGrid[r][c];
+    for(int r = 0; r < grid->getGridRowCount(); r++){
+        for(int c = 0; c < grid->getGridColumnCount(); c++){
+            rgb tempColor;
+            tempColor.r = grid->getCellColor(r,c).red();
+            tempColor.g = grid->getCellColor(r,c).green();
+            tempColor.b = grid->getCellColor(r,c).blue();
+            temp.frame[r][c] = tempColor;
         }
     }
 
@@ -317,8 +328,8 @@ void MainWindow::on_DeleteFrameButton_clicked()
 
 
         //Update mainGrid to current animation state
-        for(int r = 0; r < 10; r++){
-            for(int c = 0; c < 20; c++){
+        for(int r = 0; r < grid->getGridRowCount(); r++){
+            for(int c = 0; c < grid->getGridColumnCount(); c++){
                 mainGrid[r][c] = animation[currentAnimation].frame[r][c];
                 QColor *color = new QColor();
                 state tmp = animation[currentAnimation];
@@ -358,15 +369,16 @@ void MainWindow::on_DeleteFrameButton_clicked()
         blank.b = 0;
 
         //Clear 2d array and QGridLayout of color
-        for(int r = 0; r < 10; r++){
-            for(int c = 0; c < 20; c++){
+        for(int r = 0; r < grid->getGridRowCount(); r++){
+            for(int c = 0; c < grid->getGridColumnCount(); c++){
                 mainGrid[r][c] = blank;
 
-                QWidget *button = layout->itemAt(r * 20 + c)->widget();
+                QWidget *button = layout->itemAt(r * grid->getGridColumnCount() + c)->widget();
 
                 initFrame->frame[r][c] = blank;
                 QColor *color = new QColor(187, 187, 187);
                 QString qss = QString("background-color: %1").arg(color->name());
+              
                 mainFrame->itemAtPosition(r, c)->widget()->setStyleSheet(qss);
                 button->setStyleSheet(qss);
             }

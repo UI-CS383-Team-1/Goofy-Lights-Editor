@@ -5,6 +5,7 @@
 #include <QGridLayout>
 #include <QPushButton>
 #include <vector>
+#include "grid.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +33,7 @@ private:
     std::vector<state> animation;
     QColor currentColor;
     QGridLayout *mainFrame;
+    Grid *grid;
     rgb mainGrid[10][20];
     int currentAnimation = 0;
     QHBoxLayout *animationLayout;
@@ -63,6 +65,7 @@ private slots:
     void on_pushButton_8_clicked();
 
     void on_Scrollbar_clicked();
+
 };
 
 #endif // MAINWINDOW_H
