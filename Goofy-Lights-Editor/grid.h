@@ -17,6 +17,8 @@ public:
     void setCellColor(QColor,int,int);
     QColor getCellColor(int,int);
     void setAllCellColor(QColor);
+    void setTime(unsigned long);
+    unsigned long getTime();
     QColor **cellColors;
 
 private:

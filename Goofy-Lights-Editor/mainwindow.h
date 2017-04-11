@@ -20,23 +20,21 @@ public:
     ~MainWindow();
 
 private:
-    struct rgb{
-        int r, g, b;
-    };
-
-    struct state{
-        rgb frame[10][20];
-        unsigned long time;
-    };
 
     Ui::MainWindow *ui;
-    std::vector<state> animation;
+
+    std::vector<Grid> animation;
+
     QColor currentColor;
+
     QGridLayout *mainFrame;
+
     Grid *grid;
-    rgb mainGrid[10][20];
+
     int currentAnimation = 0;
+
     QHBoxLayout *animationLayout;
+
     QWidget *animationFrame;
 
 private slots:

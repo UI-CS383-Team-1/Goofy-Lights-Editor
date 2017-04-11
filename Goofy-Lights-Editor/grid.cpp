@@ -10,7 +10,7 @@ Grid::Grid()
      {
          cellColors[i] = new QColor[columns];
      }
-    defaultColor = QColor(128,128,128);  //set default color to grey
+    defaultColor = QColor(187,187,187);  //set default color to grey
     setAllCellColor(defaultColor);
 }
 
@@ -37,7 +37,7 @@ Grid::Grid(int rowCount, int columnCount)
     {
         cellColors[i] = new QColor[columns];
     }
-    defaultColor = QColor(128,128,128);  //set default color to grey
+    defaultColor = QColor(187,187,187);  //set default color to grey
     setAllCellColor(defaultColor);
 }
 
@@ -76,7 +76,7 @@ int Grid::getGridColumnCount()
 
 void Grid::setCellColor(QColor color,int rowIndex, int columnIndex)
 {
-    if ((0 <= rowIndex < rows) && (0 <= columnIndex < columns))
+    if (rowIndex >= 0 && rowIndex < rows && columnIndex >= 0 && columnIndex < columns)
     {
         cellColors[rowIndex][columnIndex] = color;
     }
@@ -90,7 +90,7 @@ void Grid::setCellColor(QColor color,int rowIndex, int columnIndex)
 
 QColor Grid::getCellColor(int rowIndex,int columnIndex)
 {
-    if ((0 <= rowIndex < rows) && (0 <= columnIndex < columns))
+    if (rowIndex >= 0 && rowIndex < rows && columnIndex >= 0 && columnIndex < columns)
     {
         return cellColors[rowIndex][columnIndex];
     }
@@ -109,6 +109,14 @@ void Grid::setAllCellColor(QColor color)
             cellColors[i][j] = color;
         }
     }
+}
+
+void Grid::setTime(unsigned long t){
+    time = t;
+}
+
+unsigned long Grid::getTime(){
+    return time;
 }
 
 
