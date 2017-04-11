@@ -20,23 +20,29 @@ public:
     ~MainWindow();
 
 private:
+
     Ui::MainWindow *ui;
 
     std::vector<Grid> animation;
 
+    std::vector<Grid> playB;
+
     QColor currentColor;
 
-    Grid *grid;
-    
     QGridLayout *mainFrame;
+
+    Grid *grid;
 
     int currentAnimation = 0;
 
-    QWidget *animationFrame;
+    int count = 0;
+
+    bool isPlaying = false;
 
     QHBoxLayout *animationLayout;
 
-    Grid *grid;
+    QWidget *animationFrame;
+
 private slots:
     void on_pushButton_3_clicked();
 
@@ -58,10 +64,25 @@ private slots:
 
     void assignColor();
 
+    void createGrid(QWidget *w, QGridLayout *frame, bool active);
+
     void on_pushButton_8_clicked();
 
     void on_Scrollbar_clicked();
 
+    void on_pushButton_clicked();
+
+    void updateFrame();
+
+    void on_pushButton_7_clicked();
+
+    void on_pushButton_6_clicked();
+
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_4_clicked();
+
+    void on_pushButton_2_clicked();
 };
 
 #endif // MAINWINDOW_H
