@@ -310,22 +310,19 @@ p, li { white-space: pre-wrap; }
      <layout class="QVBoxLayout" name="verticalLayout"/>
     </widget>
    </widget>
-   <zorder>pushButton</zorder>
-   <zorder>pushButton_2</zorder>
-   <zorder>comboBox</zorder>
-   <zorder>label_3</zorder>
-   <zorder>gridLayoutWidget_7</zorder>
-   <zorder>label_2</zorder>
-   <zorder>gridLayoutWidget_8</zorder>
-   <zorder>label_4</zorder>
-   <zorder>pushButton_3</zorder>
-   <zorder>AddFrameButton</zorder>
-   <zorder>pushButton_9</zorder>
-   <zorder>DeleteFrameButton</zorder>
-   <zorder>GridWidget</zorder>
-   <zorder>pushButton_8</zorder>
-   <zorder>animationArea</zorder>
-   <zorder>pushButton_11</zorder>
+   <widget class="QPushButton" name="Scrollbar">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>450</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Scrollbar</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
