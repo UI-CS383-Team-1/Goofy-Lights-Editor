@@ -6,19 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>748</width>
-    <height>528</height>
+    <width>742</width>
+    <height>457</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>250</y>
+      <width>621</width>
+      <height>61</height>
+     </rect>
+    </property>
+   </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>420</y>
+      <y>350</y>
       <width>100</width>
       <height>30</height>
      </rect>
@@ -31,7 +41,7 @@
     <property name="geometry">
      <rect>
       <x>210</x>
-      <y>420</y>
+      <y>350</y>
       <width>100</width>
       <height>30</height>
      </rect>
@@ -44,7 +54,7 @@
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>421</y>
+      <y>351</y>
       <width>100</width>
       <height>28</height>
      </rect>
@@ -200,7 +210,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>410</x>
-      <y>420</y>
+      <y>350</y>
       <width>100</width>
       <height>30</height>
      </rect>
@@ -209,11 +219,24 @@ p, li { white-space: pre-wrap; }
      <string>Quit</string>
     </property>
    </widget>
+   <widget class="QScrollBar" name="horizontalScrollBar">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>320</y>
+      <width>621</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
    <widget class="QPushButton" name="AddFrameButton">
     <property name="geometry">
      <rect>
       <x>510</x>
-      <y>420</y>
+      <y>350</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -228,8 +251,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="pushButton_9">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>450</y>
+      <x>650</x>
+      <y>270</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -242,7 +265,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>590</x>
-      <y>420</y>
+      <y>350</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -260,18 +283,12 @@ p, li { white-space: pre-wrap; }
       <height>211</height>
      </rect>
     </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
    </widget>
    <widget class="QPushButton" name="pushButton_8">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>420</y>
+      <y>350</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -280,56 +297,13 @@ p, li { white-space: pre-wrap; }
      <string>Change Color</string>
     </property>
    </widget>
-   <widget class="QScrollArea" name="animationArea">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>240</y>
-      <width>660</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="sizeAdjustPolicy">
-     <enum>QAbstractScrollArea::AdjustToContents</enum>
-    </property>
-    <property name="widgetResizable">
-     <bool>true</bool>
-    </property>
-    <widget class="QWidget" name="scrollAreaWidgetContents">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>658</width>
-       <height>159</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout"/>
-    </widget>
-   </widget>
-   <widget class="QPushButton" name="Scrollbar">
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>450</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Scrollbar</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>748</width>
+     <width>742</width>
      <height>21</height>
     </rect>
    </property>
