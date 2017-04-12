@@ -25,8 +25,6 @@ private:
 
     std::vector<Grid> animation;
 
-    std::vector<Grid> playB;
-
     QColor currentColor;
 
     QGridLayout *mainFrame;
@@ -34,10 +32,6 @@ private:
     Grid *grid;
 
     int currentAnimation = 0;
-
-    int count = 0;
-
-    bool isPlaying = false;
 
     QHBoxLayout *animationLayout;
 
@@ -70,19 +64,6 @@ private slots:
 
     void on_Scrollbar_clicked();
 
-    void on_pushButton_clicked();
-
-    void updateFrame();
-
-    void on_pushButton_7_clicked();
-
-    void on_pushButton_6_clicked();
-
-    void on_pushButton_5_clicked();
-
-    void on_pushButton_4_clicked();
-
-    void on_pushButton_2_clicked();
 };
 
 #endif // MAINWINDOW_H
