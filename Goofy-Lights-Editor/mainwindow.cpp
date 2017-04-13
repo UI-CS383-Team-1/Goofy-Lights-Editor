@@ -7,22 +7,19 @@
 #include <QDir>
 #include <QMessageBox>
 #include <QDebug>
-#include <QColorDialog>
 #include <iostream>
 #include <QSpacerItem>
 #include <QtCore>
 #include <QRect>
 #include <QScrollArea>
-#include <QScrollBar>
 #include <QSpacerItem>
-#include <QRect>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->comboBox->setCurrentIndex(3);
+    ui->SpeedDropdown->setCurrentIndex(3);
 
     /* creating grid size with default 10*20 */
     grid = new Grid();
@@ -30,14 +27,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //Clear main grid
     Grid *initFrame = new Grid(QColor(187,187,187));
 
-    grid->setAllCellColor(QColor(187,187,187));
-
     //Add initial state to animation
     initFrame->setTime(0);
     animation.push_back(*initFrame);
 
-    //Set current color to red
-    currentColor.setRgb(255, 0, 0);
+    //Set current color to grey
+    currentColor.setRgb(187, 187, 187);
 
     //Build animation scroll area
     animationFrame = new QWidget;
@@ -51,12 +46,17 @@ MainWindow::MainWindow(QWidget *parent) :
     animationLayout->addWidget(w);
     createGrid(w, frame, false);
 
-    animationLayout->addSpacing(425);
+    //I added a rediculously high number in here to get the small version of the grid looking properly.
+    animationLayout->addSpacing(4250);
 
     mainFrame = new QGridLayout;
     createGrid(ui->GridWidget, mainFrame, true);
 
-    ui->animationArea->horizontalScrollBar()->setValue(ui->animationArea->horizontalScrollBar()->value() + 100);
+    //Set up the color widget here.
+    colorDialog = new QColorDialog();
+    colorDialog->setWindowFlags(Qt::Widget);
+    colorDialog->setOptions( QColorDialog::DontUseNativeDialog | QColorDialog::NoButtons );
+    ui->ColorWidget->addWidget(colorDialog);
 }
 
 MainWindow::~MainWindow()
@@ -108,6 +108,7 @@ void MainWindow::createGrid(QWidget *w, QGridLayout *frame, bool active){
 }
 
 void MainWindow::assignColor(){
+    currentColor = colorDialog->currentColor();
     //Get button pressed
     QPushButton* pButton = qobject_cast<QPushButton*>(sender());
 
@@ -142,11 +143,6 @@ void MainWindow::assignColor(){
 
          }
     }
-}
-
-void MainWindow::on_pushButton_3_clicked()
-{
-    QCoreApplication::quit();
 }
 
 void MainWindow::on_actionQuit_triggered()
@@ -224,22 +220,6 @@ void MainWindow::on_actionExport_triggered()
 
 }
 
-void MainWindow::on_pushButton_9_clicked()
-{
-    //Test button for animation saving
-    QMessageBox::information(this, "Info", "Hello");
-    for(unsigned int i = 0; i < animation.size(); i++){
-        std::cout << "Time stamp: " << animation[i].getTime() << std::endl;
-        for(int r = 0; r < grid->getGridRowCount(); r++){
-            for(int c = 0; c < grid->getGridColumnCount(); c++){
-                QColor color = animation[i].getCellColor(r,c);
-                std::cout << color.red() << " " << color.green() << " " << color.blue() << " ";
-            }
-            std::cout << std::endl;
-        }
-    }
-}
-
 void MainWindow::on_AddFrameButton_clicked()
 {
 
@@ -297,10 +277,8 @@ void MainWindow::on_AddFrameButton_clicked()
         animationLayout->addSpacing(200);
     }
 
-    //Update animation area and set scrollbar to end
-    //TO DO: Not currently working. Looking into it.
+    //Update animation area
     ui->animationArea->update();
-    ui->animationArea->horizontalScrollBar()->setValue(ui->animationArea->horizontalScrollBar()->maximum());
 }
 
 
@@ -381,19 +359,30 @@ void MainWindow::on_DeleteFrameButton_clicked()
         }
 
     }
-
-    //Set scrollbar to the end of the animation area
-    ui->animationArea->horizontalScrollBar()->setValue(ui->animationArea->horizontalScrollBar()->maximum());
 }
 
-void MainWindow::on_pushButton_8_clicked()
+void MainWindow::on_QuitButton_clicked()
 {
-    //Change color in QColorDialog
+    QCoreApplication::quit();
+}
+
+void MainWindow::on_ColorChangeButton_clicked()
+{
     currentColor = QColorDialog::getColor(Qt::white, this);
 }
 
-void MainWindow::on_Scrollbar_clicked()
+void MainWindow::on_PrintButton_clicked()
 {
-    //Test button for scrollbar movement
-    ui->animationArea->horizontalScrollBar()->setValue(ui->animationArea->horizontalScrollBar()->maximum());
+    //Test button for animation saving
+    QMessageBox::information(this, "Info", "Hello");
+    for(unsigned int i = 0; i < animation.size(); i++){
+        std::cout << "Time stamp: " << animation[i].getTime() << std::endl;
+        for(int r = 0; r < grid->getGridRowCount(); r++){
+            for(int c = 0; c < grid->getGridColumnCount(); c++){
+                QColor color = animation[i].getCellColor(r,c);
+                std::cout << color.red() << " " << color.green() << " " << color.blue() << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
 }

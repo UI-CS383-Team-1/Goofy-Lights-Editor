@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QGridLayout>
 #include <QPushButton>
+#include <QColorDialog>
 #include <vector>
 #include "grid.h"
 
@@ -25,6 +26,7 @@ private:
 
     std::vector<Grid> animation;
 
+    QColorDialog *colorDialog;
     QColor currentColor;
 
     QGridLayout *mainFrame;
@@ -38,8 +40,6 @@ private:
     QWidget *animationFrame;
 
 private slots:
-    void on_pushButton_3_clicked();
-
     void on_actionQuit_triggered();
 
     void on_actionSave_triggered();
@@ -50,8 +50,6 @@ private slots:
 
     void on_actionExport_triggered();
 
-    void on_pushButton_9_clicked();
-
     void on_AddFrameButton_clicked();
 
     void on_DeleteFrameButton_clicked();
@@ -60,10 +58,11 @@ private slots:
 
     void createGrid(QWidget *w, QGridLayout *frame, bool active);
 
-    void on_pushButton_8_clicked();
+    void on_QuitButton_clicked();
 
-    void on_Scrollbar_clicked();
+    void on_ColorChangeButton_clicked();
 
+    void on_PrintButton_clicked();
 };
 
 #endif // MAINWINDOW_H
