@@ -10,12 +10,9 @@ Grid:
   
 
 UI
-  Add Tool Tips
-  Rename buttons (UpButton instead of pushButton_3 or whatever)
+  Add Tool Tips - Max
   Add Keyboard Shortcuts
-  Intuitive Design (Up, down, left, right buttons in a grid formation)
   Clear and Random buttons
-  Color Wheel
 
 Animation
   Allow frame selection, addition, and deletion from anywhere
