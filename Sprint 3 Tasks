@@ -1,0 +1,27 @@
+
+Please mark which Task you are working on!
+If you finish yours, pick another one.
+
+Grid:
+  Right Click to clear color
+  Draw Box around Play Area
+  Test Multiple Sizes
+  Drag cursor to paint multiple buttons
+  
+
+UI
+  Rename buttons (UpButton instead of pushButton_3 or whatever)
+  Add Keyboard Shortcuts
+  Intuitive Design (Up, down, left, right buttons in a grid formation)
+  Clear and Random buttons
+  Color Wheel
+
+Animation
+  Allow frame selection, addition, and deletion from anywhere
+  Fix scrollbar
+  Possibly implement diagonal movement
+  
+Files
+  Integrate Save
+  Integrate Load
+  Integrate Export
