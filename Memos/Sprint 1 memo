@@ -33,8 +33,12 @@
 	saving, and exporting projects. A parser and file IO system will be added later.
  \item
 \underline {Grid - Homaja and Sam}\\
+<<<<<<< HEAD
 	We were primarily incharge of creating the frame and the class for the individual cells. Homaja added the default color and preffered size for each of the cell
 	while Sam made the basic framework. The frame is at a basic state which does not support frames but this will be added at a later
+=======
+	We were primarily incharge of creating the frame and the class for the individual cells. Sam created the basic framework and Homaja added the background color of each cell and added the preferred size of each cell. The frame is at a basic state which does not support frames but this will be added at a later
+>>>>>>> sprint-1-ui
 	date.
  \item
 \underline {State changer - Hanna and Josh}\\
