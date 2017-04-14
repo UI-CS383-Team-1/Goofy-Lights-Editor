@@ -17,7 +17,7 @@ UI
 Animation
   Allow frame selection, addition, and deletion from anywhere
   Fix scrollbar
-  Possibly implement diagonal movement
+  Possibly implement diagonal movement - [Already finished this, but haven't pushed it onto GitHub] - Hanna
   
 Files
   Integrate Save
