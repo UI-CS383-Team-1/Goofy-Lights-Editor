@@ -64,6 +64,9 @@
       </property>
       <item row="5" column="0">
        <widget class="QPushButton" name="LeftButton">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift all squares &lt;span style=&quot; font-weight:600;&quot;&gt;Left&lt;/span&gt; one square&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Left</string>
         </property>
@@ -71,6 +74,9 @@
       </item>
       <item row="5" column="2">
        <widget class="QPushButton" name="RightButton">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift all squares &lt;span style=&quot; font-weight:600;&quot;&gt;Right&lt;/span&gt; one square&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Right</string>
         </property>
@@ -78,6 +84,9 @@
       </item>
       <item row="4" column="1">
        <widget class="QPushButton" name="UpButton">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift all squares &lt;span style=&quot; font-weight:600;&quot;&gt;Up&lt;/span&gt; one square&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Up</string>
         </property>
@@ -85,6 +94,9 @@
       </item>
       <item row="6" column="1">
        <widget class="QPushButton" name="DownButton">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift all squares &lt;span style=&quot; font-weight:600;&quot;&gt;Down&lt;/span&gt; one square&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Down</string>
         </property>
@@ -103,6 +115,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="PlayButton">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Start &lt;/span&gt;or &lt;span style=&quot; font-weight:600;&quot;&gt;Pause&lt;/span&gt; the animation playback&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Play/Pause</string>
         </property>
@@ -110,6 +125,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="StopButton">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Stop&lt;/span&gt; the animation playback&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Stop</string>
         </property>
@@ -117,6 +135,9 @@
       </item>
       <item>
        <widget class="QComboBox" name="SpeedDropdown">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change the speed of the animation playback&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <item>
          <property name="text">
           <string>0.25x</string>
@@ -156,6 +177,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="QuitButton">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quit the Goofy-Lights-Editor (without saving)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Quit</string>
         </property>
@@ -173,6 +197,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="DeleteFrameButton">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete the selected frame&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Delete Frame</string>
         </property>
@@ -195,8 +222,6 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <zorder>gridLayoutWidget_7</zorder>
-      <zorder>animationArea</zorder>
      </widget>
     </item>
     <item row="2" column="0" colspan="3">
@@ -252,7 +277,7 @@
      <x>0</x>
      <y>0</y>
      <width>989</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -266,7 +291,14 @@
     <addaction name="actionLoad"/>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionHotkeys"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -306,6 +338,11 @@
   <action name="actionExport">
    <property name="text">
     <string>Export</string>
+   </property>
+  </action>
+  <action name="actionHotkeys">
+   <property name="text">
+    <string>Hotkeys</string>
    </property>
   </action>
  </widget>
