@@ -1,0 +1,27 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{graphicx}
+	\addtolength{\oddsidemargin}{-.875in}
+	\addtolength{\evensidemargin}{-.875in}
+	\addtolength{\textwidth}{1.75in}
+
+	\addtolength{\topmargin}{-.875in}
+	\addtolength{\textheight}{1.75in}
+
+\begin{document}
+
+\hfill\break
+\textbf{To} Bruce Bolden\\
+\textbf{From} Christian Baisch\\
+\textbf{Subject} Summary of personal sprint 2 work\\
+
+\section*{Introduction}
+During this sprint I created to outer grid to make the application easier to use and increase overall functionality. 
+
+
+\section*{Summary}
+In this sprint I added a few features to get the outer grid to work. I took the original grid class and modified to work around the inner grid. I also added the features that will allow the right, left, down, and up buttons to work. There are some problems with it but I will be working on that in the next sprint.
+
+\section*{Appendics}
+Some of the problems I had during this sprint was time management and figuring out how to work around my teammates. It was hard to add the functionality of the buttons and create the class until that was already done. It left me limited.

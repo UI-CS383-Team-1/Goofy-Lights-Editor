@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2017-03-24T15:20:46
+# Project created by QtCreator 2017-04-10T21:25:34
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Goofy-Lights-Editor
+TARGET = untitled12
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -24,10 +24,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        grid.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    grid.cpp
 
-HEADERS  += mainwindow.h\
-         grid.h
+HEADERS  += mainwindow.h \
+    grid.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    ../Downloads/Goofy-Lights-Editor-sprint-2-master/Goofy-Lights-Editor/mainwindow.ui
