@@ -31,7 +31,7 @@ private:
     std::vector<Grid> animation;
 
     QColorDialog *colorDialog;
-    
+
     QColor currentColor;
 
     QGridLayout *mainFrame;
@@ -39,7 +39,7 @@ private:
     Grid *grid;
 
     int currentAnimation = 0;
-    
+
     int countDown;
 
     float test;
@@ -49,7 +49,7 @@ private:
     QHBoxLayout *animationLayout;
 
     QWidget *animationFrame;
-    
+
     QTime time2;
 
     QTimer *timer;
@@ -80,12 +80,12 @@ private slots:
     void on_PrintButton_clicked();
 
     void setAnimation();
-    
+
     void on_PlayButton_clicked();
 
     void updateFrame();
 
-    void on_StopButton_clicked();        
+    void on_StopButton_clicked();
 
     void on_UpButton_clicked();
 
@@ -108,7 +108,7 @@ private slots:
     void on_SpeedDropdown_currentIndexChanged(int);
 
     void showTime();
-    
+
 };
 
 #endif // MAINWINDOW_H

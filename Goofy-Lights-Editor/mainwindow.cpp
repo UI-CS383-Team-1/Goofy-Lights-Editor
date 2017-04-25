@@ -76,7 +76,7 @@ void MainWindow::createGrid(QWidget *w, QGridLayout *frame, bool active){
     //Remove spacing between buttons
     frame->setHorizontalSpacing(0);
     frame->setVerticalSpacing(0);
-  
+
     for(int i = 0; i < grid->getGridRowCount(); i++)
     {
         for(int j = 0; j < grid->getGridColumnCount(); j++)
@@ -364,7 +364,7 @@ void MainWindow::on_DeleteFrameButton_clicked()
 
                 QColor *color = new QColor(187, 187, 187);
                 QString qss = QString("background-color: %1").arg(color->name());
-              
+
                 mainFrame->itemAtPosition(r, c)->widget()->setStyleSheet(qss);
                 button->setStyleSheet(qss);
             }
@@ -487,7 +487,7 @@ void MainWindow::on_PlayButton_clicked()
     {
         isPlaying = false;
         co = animation.size();
-        //timer->stop();
+        timer->stop();
         updateFrame();
         return;
     }
