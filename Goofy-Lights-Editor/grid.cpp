@@ -2,8 +2,17 @@
 
 Grid::Grid()
 {
+    //DEFAULT Gird Size
     rows = 10;
     columns = 20;
+
+    //DEFAULT Gird AREA
+    gridCellStartRow = 1;
+    gridCellEndRow = 10;
+    gridCellStartCol = 9;
+    gridCellEndCol = 12;
+
+
     //Default Allocation with size 10 * 20
      cellColors = new QColor*[rows];
      for(int i = 0; i < rows; ++i)
@@ -18,6 +27,13 @@ Grid::Grid(QColor color)
 {
     rows = 10;
     columns = 20;
+
+    //Default Gird Area
+    gridCellStartRow = 1;
+    gridCellEndRow = 10;
+    gridCellStartCol = 9;
+    gridCellEndCol = 12;
+
     //Default Allocation with size 10 * 20
     cellColors = new QColor*[rows];
     for(int i = 0; i < rows; ++i)
@@ -32,6 +48,13 @@ Grid::Grid(int rowCount, int columnCount)
 {
     rows = rowCount;
     columns = columnCount;
+
+    //Default Gird Area
+    gridCellStartRow = 1;
+    gridCellEndRow = rowCount;
+    gridCellStartCol = (columnCount/2)-1;
+    gridCellEndCol = (columnCount/2)+1;
+
     cellColors = new QColor*[rows];
     for(int i = 0; i < rows; ++i)
     {
@@ -45,6 +68,13 @@ Grid::Grid(int rowCount, int columnCount, QColor color)
 {
     rows = rowCount;
     columns = columnCount;
+
+    //Default Gird Area
+    gridCellStartRow = 1;
+    gridCellEndRow = rowCount;
+    gridCellStartCol = (columnCount/2)-1;
+    gridCellEndCol = (columnCount/2)+1;
+
     cellColors = new QColor*[rows];
     for(int i = 0; i < rows; ++i)
     {
@@ -53,6 +83,7 @@ Grid::Grid(int rowCount, int columnCount, QColor color)
     defaultColor = color;
     setAllCellColor(color);
 }
+
 
 void Grid::setGridRowCount(int rowCount)
 {
@@ -109,6 +140,29 @@ void Grid::setAllCellColor(QColor color)
             cellColors[i][j] = color;
         }
     }
+}
+
+void Grid::setTowerGrid(int startRow, int endRow, int startCol, int endCol) {
+    gridCellStartRow = startRow;
+    gridCellEndRow = endRow;
+    gridCellStartCol = startCol;
+    gridCellEndCol = endCol;
+}
+
+int Grid::getTowerGridStartRow() {
+    return gridCellStartRow;
+}
+
+int Grid::getTowerGridEndRow() {
+    return gridCellEndRow;
+}
+
+int Grid::getTowerGridStartCol() {
+    return gridCellStartCol;
+}
+
+int Grid::getTowerGridEndCol() {
+    return gridCellEndCol;
 }
 
 void Grid::setTime(unsigned long t){

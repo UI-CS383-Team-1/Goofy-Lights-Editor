@@ -13,6 +13,8 @@
 #include <QRect>
 #include <QScrollArea>
 #include <QSpacerItem>
+#include <QKeyEvent>
+#include <QLayoutItem>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -82,11 +84,20 @@ void MainWindow::createGrid(QWidget *w, QGridLayout *frame, bool active){
         {
             //Creating a push button
             QPushButton *tmp = new QPushButton;
-
             //Assigning the color to grid cell and size
             QColor cellColor = grid->getCellColor(i,j);
-            QString qss = QString("background-color: %1").arg(cellColor.name());
-            tmp->setStyleSheet(qss);
+
+            //Default selection of tower grid
+            if(i>=(grid->gridCellStartRow-1) && i<grid->gridCellEndRow &&
+                j>=(grid->gridCellStartCol-1) && j<grid->gridCellEndCol) {
+
+                QString str = QString("border-style: outset;border-width: 0.5px; border-color: black;");
+                tmp->setStyleSheet(str);
+            }
+            else {
+                QString qss = QString("background-color: %1;border-color: beige").arg(cellColor.name());
+                tmp->setStyleSheet(qss);
+            }
             tmp->setSizePolicy(*policy);
 
             if(active)
@@ -103,9 +114,14 @@ void MainWindow::createGrid(QWidget *w, QGridLayout *frame, bool active){
                      "border-width: 1px;"
                      "border-color: beige; }");
 
+
     w->setLayout(frame);
+
     w->show();
 }
+
+
+
 
 void MainWindow::assignColor(){
     currentColor = colorDialog->currentColor();
@@ -118,30 +134,34 @@ void MainWindow::assignColor(){
     mainFrame->getItemPosition(index, &x, &y, &xs, &xy);
     qDebug() << QString::number(x) << " " << QString::number(y);
 
-    //Update rgb value at X,Y in grid->cellColors
-    QColor *color = new QColor(currentColor.red(), currentColor.green(), currentColor.blue());
+    //updates the color only if its in tower grid area
+    if(x>=(grid->gridCellStartRow-1) && x<grid->gridCellEndRow &&
+        y>=(grid->gridCellStartCol-1) && y<grid->gridCellEndCol) {
+        //Update rgb value at X,Y in grid->cellColors
+        QColor *color = new QColor(currentColor.red(), currentColor.green(), currentColor.blue());
 
-    grid->cellColors[x][y] = currentColor;
+        grid->cellColors[x][y] = currentColor;
 
-    //and current animation frame
-    Grid temp = animation[currentAnimation];
-    temp.setCellColor(*color, x, y);
+        //and current animation frame
+        Grid temp = animation[currentAnimation];
+        temp.setCellColor(*color, x, y);
 
 
-    QWidget *w = animationLayout->itemAt(currentAnimation)->widget();
-    QLayout *layout = w->layout();
+        QWidget *w = animationLayout->itemAt(currentAnimation)->widget();
+        QLayout *layout = w->layout();
 
-    QWidget *button = layout->itemAt(x * 20 + y)->widget();
+        QWidget *button = layout->itemAt(x * 20 + y)->widget();
 
-    //Set color to current color
-    if (pButton) // this is the type we expect
-    {
-         if(currentColor.isValid()){
-             QString qss = QString("background-color: %1").arg(currentColor.name());
-             pButton->setStyleSheet(qss);
-             button->setStyleSheet(qss);
+        //Set color to current color
+        if (pButton) // this is the type we expect
+        {
+            if(currentColor.isValid()){
+                QString qss = QString("background-color: %1").arg(currentColor.name());
+                pButton->setStyleSheet(qss);
+                button->setStyleSheet(qss);
 
-         }
+            }
+        }
     }
 }
 
@@ -385,4 +405,16 @@ void MainWindow::on_PrintButton_clicked()
             std::cout << std::endl;
         }
     }
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *e)
+{
+    if(e->modifiers() == Qt::ShiftModifier)
+        shiftKeyPress = true;
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *e)
+{
+    if(e->modifiers() == Qt::ShiftModifier)
+        shiftKeyPress = false;
 }
