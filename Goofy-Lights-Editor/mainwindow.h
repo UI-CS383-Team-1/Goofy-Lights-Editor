@@ -5,6 +5,7 @@
 #include <QGridLayout>
 #include <QPushButton>
 #include <QColorDialog>
+#include <QTime>
 #include <vector>
 #include "grid.h"
 
@@ -30,6 +31,7 @@ private:
     std::vector<Grid> animation;
 
     QColorDialog *colorDialog;
+    
     QColor currentColor;
 
     QGridLayout *mainFrame;
@@ -37,10 +39,20 @@ private:
     Grid *grid;
 
     int currentAnimation = 0;
+    
+    int countDown;
+
+    float test;
+
+    bool isPlaying = false;
 
     QHBoxLayout *animationLayout;
 
     QWidget *animationFrame;
+    
+    QTime time2;
+
+    QTimer *timer;
 
 private slots:
     void on_actionQuit_triggered();
@@ -68,6 +80,35 @@ private slots:
     void on_PrintButton_clicked();
 
     void setAnimation();
+    
+    void on_PlayButton_clicked();
+
+    void updateFrame();
+
+    void on_StopButton_clicked();        
+
+    void on_UpButton_clicked();
+
+    void on_LeftButton_clicked();
+
+    void on_RightButton_clicked();
+
+    void on_DownButton_clicked();
+
+    void on_DownLeft_clicked();
+
+    void on_DownRight_clicked();
+
+    void on_UpLeft_clicked();
+
+    void on_UpRight_clicked();
+
+    void delay(int millisecondsToWait);
+
+    void on_SpeedDropdown_currentIndexChanged(int);
+
+    void showTime();
+    
 };
 
 #endif // MAINWINDOW_H
