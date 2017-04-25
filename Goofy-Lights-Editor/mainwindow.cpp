@@ -13,8 +13,6 @@
 #include <QRect>
 #include <QScrollArea>
 #include <QSpacerItem>
-#include <QKeyEvent>
-#include <QLayoutItem>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -45,11 +43,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QWidget *w = new QWidget;
     QGridLayout *frame = new QGridLayout;
+    w->setObjectName(QString::number(0));
     animationLayout->addWidget(w);
     createGrid(w, frame, false);
 
-    //I added a rediculously high number in here to get the small version of the grid looking properly.
-    animationLayout->addSpacing(4250);
+    //I added a ridculously high number in here to get the small version of the grid looking properly.
+    animationLayout->addSpacing(10000);
 
     mainFrame = new QGridLayout;
     createGrid(ui->GridWidget, mainFrame, true);
@@ -84,26 +83,19 @@ void MainWindow::createGrid(QWidget *w, QGridLayout *frame, bool active){
         {
             //Creating a push button
             QPushButton *tmp = new QPushButton;
+
             //Assigning the color to grid cell and size
             QColor cellColor = grid->getCellColor(i,j);
-
-            //Default selection of tower grid
-            if(i>=(grid->gridCellStartRow-1) && i<grid->gridCellEndRow &&
-                j>=(grid->gridCellStartCol-1) && j<grid->gridCellEndCol) {
-
-                QString str = QString("border-style: outset;border-width: 0.5px; border-color: black;");
-                tmp->setStyleSheet(str);
-            }
-            else {
-                QString qss = QString("background-color: %1;border-color: beige").arg(cellColor.name());
-                tmp->setStyleSheet(qss);
-            }
+            QString qss = QString("background-color: %1").arg(cellColor.name());
+            tmp->setStyleSheet(qss);
             tmp->setSizePolicy(*policy);
 
             if(active)
                 connect(tmp, SIGNAL(clicked()), this, SLOT(assignColor()));
-            else
+            else{
                 tmp->setMaximumSize(10,10);
+                connect(tmp, SIGNAL(clicked()), this, SLOT(setAnimation()));
+            }
 
             frame->addWidget(tmp,i,j,1,1);
         }
@@ -114,16 +106,12 @@ void MainWindow::createGrid(QWidget *w, QGridLayout *frame, bool active){
                      "border-width: 1px;"
                      "border-color: beige; }");
 
-
     w->setLayout(frame);
-
     w->show();
 }
 
-
-
-
 void MainWindow::assignColor(){
+
     currentColor = colorDialog->currentColor();
     //Get button pressed
     QPushButton* pButton = qobject_cast<QPushButton*>(sender());
@@ -134,34 +122,30 @@ void MainWindow::assignColor(){
     mainFrame->getItemPosition(index, &x, &y, &xs, &xy);
     qDebug() << QString::number(x) << " " << QString::number(y);
 
-    //updates the color only if its in tower grid area
-    if(x>=(grid->gridCellStartRow-1) && x<grid->gridCellEndRow &&
-        y>=(grid->gridCellStartCol-1) && y<grid->gridCellEndCol) {
-        //Update rgb value at X,Y in grid->cellColors
-        QColor *color = new QColor(currentColor.red(), currentColor.green(), currentColor.blue());
+    //Update rgb value at X,Y in grid->cellColors
+    QColor *color = new QColor(currentColor.red(), currentColor.green(), currentColor.blue());
 
-        grid->cellColors[x][y] = currentColor;
+    grid->cellColors[x][y] = currentColor;
 
-        //and current animation frame
-        Grid temp = animation[currentAnimation];
-        temp.setCellColor(*color, x, y);
+    //and current animation frame
+    Grid temp = animation[currentAnimation];
+    temp.setCellColor(*color, x, y);
 
 
-        QWidget *w = animationLayout->itemAt(currentAnimation)->widget();
-        QLayout *layout = w->layout();
+    QWidget *w = animationLayout->itemAt(currentAnimation)->widget();
+    QLayout *layout = w->layout();
 
-        QWidget *button = layout->itemAt(x * 20 + y)->widget();
+    QWidget *button = layout->itemAt(x * 20 + y)->widget();
 
-        //Set color to current color
-        if (pButton) // this is the type we expect
-        {
-            if(currentColor.isValid()){
-                QString qss = QString("background-color: %1").arg(currentColor.name());
-                pButton->setStyleSheet(qss);
-                button->setStyleSheet(qss);
+    //Set color to current color
+    if (pButton) // this is the type we expect
+    {
+         if(currentColor.isValid()){
+             QString qss = QString("background-color: %1").arg(currentColor.name());
+             pButton->setStyleSheet(qss);
+             button->setStyleSheet(qss);
 
-            }
-        }
+         }
     }
 }
 
@@ -244,7 +228,7 @@ void MainWindow::on_AddFrameButton_clicked()
 {
 
     //Remove the spacer to allow for addition of frames
-    if(animation.size() <= 2){
+    if(animation.size() < 15){
         QWidget *tmp = animationLayout->itemAt(animation.size())->widget();
         animationLayout->removeWidget(animationLayout->itemAt(animation.size())->widget());
         delete tmp;
@@ -265,12 +249,17 @@ void MainWindow::on_AddFrameButton_clicked()
 
     //Add the new state to the back of the animation
     //TO DO: Add at any point
-    animation.push_back(temp);
+    animation.insert(animation.begin() + currentAnimation + 1, temp);
+
+
 
     //Add grid to animation
     QWidget *w = new QWidget;
     QGridLayout *frame = new QGridLayout;
-    animationLayout->addWidget(w);
+    w->setObjectName(QString::number(currentAnimation+1));
+    qDebug() << QString("Adding widget at: ") << QString::number(currentAnimation+1);
+    animationLayout->insertWidget(currentAnimation + 1, w);
+    //animationLayout->addWidget(w);
     createGrid(w, frame, false);
 
     //Copy 2d array to frame in animationArea
@@ -289,12 +278,17 @@ void MainWindow::on_AddFrameButton_clicked()
             frame->itemAtPosition(r, c)->widget()->setStyleSheet(qss);
         }
     }
-
     currentAnimation++;
 
     //If the animation is still not enough to fill, add spacer
-    if(animation.size() == 2){
-        animationLayout->addSpacing(200);
+    if(animation.size() >= 2 && animation.size() < 15){
+        animationLayout->addSpacing(10000);
+    }
+
+    unsigned int i = 0;
+    for(; i < animation.size(); i++){
+        QWidget *clicked = animationLayout->itemAt(i)->widget();
+        clicked->setObjectName(QString::number(i));
     }
 
     //Update animation area
@@ -307,7 +301,7 @@ void MainWindow::on_DeleteFrameButton_clicked()
 {
 
     //Remove the spacer to allow for deletion of frames
-    if(animation.size() == 2){
+    if(animation.size() >= 2 && animation.size() < 15){
         QWidget *tmp = animationLayout->itemAt(animation.size())->widget();
         animationLayout->removeWidget(animationLayout->itemAt(animation.size())->widget());
         delete tmp;
@@ -317,9 +311,10 @@ void MainWindow::on_DeleteFrameButton_clicked()
     if(animation.size() > 1){
 
         //Remove last state
-        animation.pop_back();
+        //animation.pop_back();
+        animation.erase(animation.begin() + currentAnimation);
         currentAnimation--;
-
+        if(currentAnimation < 0) currentAnimation = 0;
 
         //Update grid->cellColors to current animation state
         for(int r = 0; r < grid->getGridRowCount(); r++){
@@ -342,16 +337,13 @@ void MainWindow::on_DeleteFrameButton_clicked()
         }
 
         //Remove widget from layout and delete widget
-        QWidget *tmp = animationLayout->itemAt(animation.size())->widget();
-        animationLayout->removeWidget(animationLayout->itemAt(animation.size())->widget());
+        QWidget *tmp = animationLayout->itemAt(currentAnimation+1)->widget();
+        animationLayout->removeWidget(animationLayout->itemAt(currentAnimation+1)->widget());
         delete tmp;
 
         //Added to handle the sizing of the animation
-        if(animation.size() == 2){
-            animationLayout->addSpacing(200);
-        }
-        if(animation.size() == 1){
-            animationLayout->addSpacing(425);
+        if(animation.size() < 15){
+            animationLayout->addSpacing(10000);
         }
     }
     else{
@@ -378,6 +370,14 @@ void MainWindow::on_DeleteFrameButton_clicked()
             }
         }
 
+    }
+
+
+    //Reset numbers for animation selection
+    unsigned int i = 0;
+    for(; i < animation.size(); i++){
+        QWidget *clicked = animationLayout->itemAt(i)->widget();
+        clicked->setObjectName(QString::number(i));
     }
 }
 
@@ -407,14 +407,68 @@ void MainWindow::on_PrintButton_clicked()
     }
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *e)
-{
-    if(e->modifiers() == Qt::ShiftModifier)
-        shiftKeyPress = true;
+void MainWindow::mousePressEvent(QMouseEvent *event){
+
+    if(!ui->animationArea->underMouse() || event->button() != Qt::LeftButton) return;
+
+    //Locate which widget is being pressed
+    QWidget *clicked;
+    unsigned int i = 0;
+    for(; i < animation.size(); i++){
+        clicked = animationLayout->itemAt(i)->widget();
+        if(clicked->underMouse()){
+            qDebug() << QString::number(i) << QString(" was clicked");
+            break;
+        }
+    }
+
+    //Set grid and animation to selected frame
+    currentAnimation = i;
+    for(int r = 0; r < 10; r++){
+        for(int c = 0; c < 20; c++){
+            QColor *color = new QColor();
+
+            //Displays black as gray.
+            if(animation[i].getCellColor(r, c) == QColor(0,0,0)){
+                color->setRgb(187, 187, 187);
+            }
+            else{
+                *color = animation[i].getCellColor(r, c);
+            }
+            grid->cellColors[r][c] = *color;
+            QString qss = QString("background-color: %1").arg(color->name());
+            mainFrame->itemAtPosition(r, c)->widget()->setStyleSheet(qss);
+        }
+    }
 }
 
-void MainWindow::keyReleaseEvent(QKeyEvent *e)
-{
-    if(e->modifiers() == Qt::ShiftModifier)
-        shiftKeyPress = false;
+void MainWindow::setAnimation(){
+    //get object name that has animation number
+    QPushButton* pButton = qobject_cast<QPushButton*>(sender());
+    qDebug() << QString("SET ANIMATION: ");
+    QObject *tmp = pButton->parent();
+    qDebug() << tmp->objectName();
+
+    //Set mainframe to animation frame
+    int clicked = tmp->objectName().toInt();
+    currentAnimation = clicked;
+    for(int r = 0; r < 10; r++){
+        for(int c = 0; c < 20; c++){
+            QColor *color = new QColor();
+
+            //Displays black as gray.
+            if(animation[clicked].getCellColor(r, c) == QColor(0,0,0)){
+                color->setRgb(187, 187, 187);
+            }
+            else{
+                *color = animation[clicked].getCellColor(r, c);
+            }
+            grid->cellColors[r][c] = *color;
+            QString qss = QString("background-color: %1").arg(color->name());
+            mainFrame->itemAtPosition(r, c)->widget()->setStyleSheet(qss);
+        }
+    }
+
+
+
 }

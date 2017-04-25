@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>989</width>
-    <height>659</height>
+    <width>1015</width>
+    <height>577</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,92 +17,16 @@
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
    </property>
-   <layout class="QGridLayout" name="gridLayout" rowminimumheight="0,0,175,0">
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>Colors</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="GridLabel">
-      <property name="text">
-       <string>Main Grid</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="1">
+     <widget class="QWidget" name="GridWidget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
      </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="MovementLabel">
-      <property name="text">
-       <string>Move Tiles</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <layout class="QGridLayout" name="gridLayout_8">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetDefaultConstraint</enum>
-      </property>
-      <property name="topMargin">
-       <number>100</number>
-      </property>
-      <property name="bottomMargin">
-       <number>100</number>
-      </property>
-      <property name="spacing">
-       <number>0</number>
-      </property>
-      <item row="5" column="0">
-       <widget class="QPushButton" name="LeftButton">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift all squares &lt;span style=&quot; font-weight:600;&quot;&gt;Left&lt;/span&gt; one square&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>Left</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="2">
-       <widget class="QPushButton" name="RightButton">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift all squares &lt;span style=&quot; font-weight:600;&quot;&gt;Right&lt;/span&gt; one square&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>Right</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QPushButton" name="UpButton">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift all squares &lt;span style=&quot; font-weight:600;&quot;&gt;Up&lt;/span&gt; one square&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>Up</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QPushButton" name="DownButton">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift all squares &lt;span style=&quot; font-weight:600;&quot;&gt;Down&lt;/span&gt; one square&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>Down</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </item>
     <item row="3" column="0" colspan="3">
      <layout class="QHBoxLayout" name="Buttons">
@@ -214,15 +138,8 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="1">
-     <widget class="QWidget" name="GridWidget" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-     </widget>
+    <item row="1" column="0">
+     <layout class="QVBoxLayout" name="ColorWidget"/>
     </item>
     <item row="2" column="0" colspan="3">
      <widget class="QScrollArea" name="animationArea">
@@ -252,8 +169,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>969</width>
-         <height>173</height>
+         <width>995</width>
+         <height>69</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -266,8 +183,115 @@
       </widget>
      </widget>
     </item>
-    <item row="1" column="0">
-     <layout class="QVBoxLayout" name="ColorWidget"/>
+    <item row="0" column="2">
+     <widget class="QLabel" name="MovementLabel">
+      <property name="text">
+       <string>Move Tiles</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="GridLabel">
+      <property name="text">
+       <string>Main Grid</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Colors</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <layout class="QGridLayout" name="gridLayout_8">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <property name="topMargin">
+       <number>100</number>
+      </property>
+      <property name="bottomMargin">
+       <number>100</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="5" column="0">
+       <widget class="QPushButton" name="LeftButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift all squares &lt;span style=&quot; font-weight:600;&quot;&gt;Left&lt;/span&gt; one square&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Left</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="QPushButton" name="RightButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift all squares &lt;span style=&quot; font-weight:600;&quot;&gt;Right&lt;/span&gt; one square&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Right</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QPushButton" name="UpButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift all squares &lt;span style=&quot; font-weight:600;&quot;&gt;Up&lt;/span&gt; one square&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Up</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QPushButton" name="DownButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift all squares &lt;span style=&quot; font-weight:600;&quot;&gt;Down&lt;/span&gt; one square&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Down</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -276,8 +300,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>989</width>
-     <height>22</height>
+     <width>1015</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
