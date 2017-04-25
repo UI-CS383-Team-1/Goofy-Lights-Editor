@@ -38,6 +38,15 @@ private:
     QHBoxLayout *animationLayout;
 
     QWidget *animationFrame;
+    bool shiftKeyPress = false;
+
+protected:
+    virtual void keyPressEvent(QKeyEvent * event);
+    virtual void keyReleaseEvent(QKeyEvent * event);
+
+private:
+    void assignColor(); //Method to assign color to the grid cell
+    void assignBorder();//Method to assign border to the grid cell
 
 private slots:
     void on_actionQuit_triggered();
@@ -54,8 +63,6 @@ private slots:
 
     void on_DeleteFrameButton_clicked();
 
-    void assignColor();
-
     void createGrid(QWidget *w, QGridLayout *frame, bool active);
 
     void on_QuitButton_clicked();
@@ -63,6 +70,7 @@ private slots:
     void on_ColorChangeButton_clicked();
 
     void on_PrintButton_clicked();
+
 };
 
 #endif // MAINWINDOW_H

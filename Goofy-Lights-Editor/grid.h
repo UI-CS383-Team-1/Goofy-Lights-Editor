@@ -14,10 +14,13 @@ public:
     Grid(QColor);
 
     //Creates a new grid of size row x column with a default color gray
-    Grid(int,int);
+    Grid(int, int);
 
     //Creates a new grid of size row x column with a given color
     Grid(int, int, QColor);
+
+    //Creates tower grid
+    Grid(int, int, int, int);
 
     //Sets the number of rows to a given value
     void setGridRowCount(int);
@@ -40,6 +43,21 @@ public:
     //Sets all cells in the grid to a given color
     void setAllCellColor(QColor);
 
+    //Sets the tower grid values
+    void setTowerGrid(int,int,int,int);
+
+    //Returns tower grid value start row
+    int getTowerGridStartRow();
+
+    //Returns tower grid value end row
+    int getTowerGridEndRow();
+
+    //Returns tower grid value start column
+    int getTowerGridStartCol();
+
+    //Returns tower grid value end column
+    int getTowerGridEndCol();
+
     //Sets the time to a given value
     void setTime(unsigned long);
 
@@ -48,6 +66,11 @@ public:
 
     //2d array for the grid colors
     QColor **cellColors;
+
+    int gridCellStartRow;
+    int gridCellStartCol;
+    int gridCellEndRow;
+    int gridCellEndCol;
 
 private:
     int rows;
