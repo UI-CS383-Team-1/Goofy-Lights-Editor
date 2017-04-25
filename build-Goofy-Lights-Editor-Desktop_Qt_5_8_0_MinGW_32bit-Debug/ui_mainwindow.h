@@ -15,17 +15,17 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QScrollBar>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTableView>
-#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -40,27 +40,29 @@ public:
     QAction *actionQuit;
     QAction *actionExport;
     QWidget *centralWidget;
-    QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
-    QTextBrowser *textBrowser_2;
-    QTableView *tableView;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
-    QComboBox *comboBox;
-    QLabel *label_3;
-    QWidget *gridLayoutWidget_7;
-    QGridLayout *gridLayout_7;
-    QTextBrowser *textBrowser;
-    QLabel *label_2;
-    QWidget *gridLayoutWidget_8;
+    QLabel *label;
+    QLabel *GridLabel;
+    QLabel *MovementLabel;
     QGridLayout *gridLayout_8;
-    QPushButton *pushButton_4;
-    QPushButton *pushButton_6;
-    QPushButton *pushButton_5;
-    QPushButton *pushButton_7;
-    QLabel *label_4;
-    QPushButton *pushButton_3;
-    QScrollBar *horizontalScrollBar;
+    QPushButton *LeftButton;
+    QPushButton *RightButton;
+    QPushButton *UpButton;
+    QPushButton *DownButton;
+    QHBoxLayout *Buttons;
+    QPushButton *ColorChangeButton;
+    QPushButton *PlayButton;
+    QPushButton *StopButton;
+    QComboBox *SpeedDropdown;
+    QPushButton *QuitButton;
+    QPushButton *AddFrameButton;
+    QPushButton *DeleteFrameButton;
+    QPushButton *PrintButton;
+    QWidget *GridWidget;
+    QScrollArea *animationArea;
+    QWidget *scrollAreaWidgetContents;
+    QVBoxLayout *verticalLayout;
+    QVBoxLayout *ColorWidget;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QToolBar *mainToolBar;
@@ -70,7 +72,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(742, 457);
+        MainWindow->resize(989, 659);
         actionSave = new QAction(MainWindow);
         actionSave->setObjectName(QStringLiteral("actionSave"));
         actionSave_As = new QAction(MainWindow);
@@ -85,95 +87,148 @@ public:
         actionExport->setObjectName(QStringLiteral("actionExport"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        gridLayoutWidget = new QWidget(centralWidget);
-        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(122, 20, 401, 211));
-        gridLayout = new QGridLayout(gridLayoutWidget);
+        centralWidget->setLayoutDirection(Qt::LeftToRight);
+        gridLayout = new QGridLayout(centralWidget);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        textBrowser_2 = new QTextBrowser(gridLayoutWidget);
-        textBrowser_2->setObjectName(QStringLiteral("textBrowser_2"));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setAlignment(Qt::AlignCenter);
 
-        gridLayout->addWidget(textBrowser_2, 0, 0, 1, 1);
+        gridLayout->addWidget(label, 0, 0, 1, 1);
 
-        tableView = new QTableView(centralWidget);
-        tableView->setObjectName(QStringLiteral("tableView"));
-        tableView->setGeometry(QRect(10, 250, 621, 61));
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(110, 350, 100, 30));
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(210, 350, 100, 30));
-        comboBox = new QComboBox(centralWidget);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setGeometry(QRect(310, 351, 100, 28));
-        label_3 = new QLabel(centralWidget);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(240, 0, 91, 17));
-        label_3->setAlignment(Qt::AlignCenter);
-        gridLayoutWidget_7 = new QWidget(centralWidget);
-        gridLayoutWidget_7->setObjectName(QStringLiteral("gridLayoutWidget_7"));
-        gridLayoutWidget_7->setGeometry(QRect(10, 20, 111, 211));
-        gridLayout_7 = new QGridLayout(gridLayoutWidget_7);
-        gridLayout_7->setSpacing(6);
-        gridLayout_7->setContentsMargins(11, 11, 11, 11);
-        gridLayout_7->setObjectName(QStringLiteral("gridLayout_7"));
-        gridLayout_7->setContentsMargins(0, 0, 0, 0);
-        textBrowser = new QTextBrowser(gridLayoutWidget_7);
-        textBrowser->setObjectName(QStringLiteral("textBrowser"));
+        GridLabel = new QLabel(centralWidget);
+        GridLabel->setObjectName(QStringLiteral("GridLabel"));
+        GridLabel->setAlignment(Qt::AlignCenter);
 
-        gridLayout_7->addWidget(textBrowser, 0, 0, 1, 1);
+        gridLayout->addWidget(GridLabel, 0, 1, 1, 1);
 
-        label_2 = new QLabel(centralWidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(30, 0, 59, 17));
-        label_2->setAlignment(Qt::AlignCenter);
-        gridLayoutWidget_8 = new QWidget(centralWidget);
-        gridLayoutWidget_8->setObjectName(QStringLiteral("gridLayoutWidget_8"));
-        gridLayoutWidget_8->setGeometry(QRect(530, 20, 101, 211));
-        gridLayout_8 = new QGridLayout(gridLayoutWidget_8);
-        gridLayout_8->setSpacing(6);
-        gridLayout_8->setContentsMargins(11, 11, 11, 11);
+        MovementLabel = new QLabel(centralWidget);
+        MovementLabel->setObjectName(QStringLiteral("MovementLabel"));
+        MovementLabel->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(MovementLabel, 0, 2, 1, 1);
+
+        gridLayout_8 = new QGridLayout();
+        gridLayout_8->setSpacing(0);
         gridLayout_8->setObjectName(QStringLiteral("gridLayout_8"));
-        gridLayout_8->setContentsMargins(0, 0, 0, 0);
-        pushButton_4 = new QPushButton(gridLayoutWidget_8);
-        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
+        gridLayout_8->setSizeConstraint(QLayout::SetDefaultConstraint);
+        gridLayout_8->setContentsMargins(-1, 100, -1, 100);
+        LeftButton = new QPushButton(centralWidget);
+        LeftButton->setObjectName(QStringLiteral("LeftButton"));
 
-        gridLayout_8->addWidget(pushButton_4, 1, 0, 1, 1);
+        gridLayout_8->addWidget(LeftButton, 5, 0, 1, 1);
 
-        pushButton_6 = new QPushButton(gridLayoutWidget_8);
-        pushButton_6->setObjectName(QStringLiteral("pushButton_6"));
+        RightButton = new QPushButton(centralWidget);
+        RightButton->setObjectName(QStringLiteral("RightButton"));
 
-        gridLayout_8->addWidget(pushButton_6, 4, 0, 1, 1);
+        gridLayout_8->addWidget(RightButton, 5, 2, 1, 1);
 
-        pushButton_5 = new QPushButton(gridLayoutWidget_8);
-        pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
+        UpButton = new QPushButton(centralWidget);
+        UpButton->setObjectName(QStringLiteral("UpButton"));
 
-        gridLayout_8->addWidget(pushButton_5, 3, 0, 1, 1);
+        gridLayout_8->addWidget(UpButton, 4, 1, 1, 1);
 
-        pushButton_7 = new QPushButton(gridLayoutWidget_8);
-        pushButton_7->setObjectName(QStringLiteral("pushButton_7"));
+        DownButton = new QPushButton(centralWidget);
+        DownButton->setObjectName(QStringLiteral("DownButton"));
 
-        gridLayout_8->addWidget(pushButton_7, 5, 0, 1, 1);
+        gridLayout_8->addWidget(DownButton, 6, 1, 1, 1);
 
-        label_4 = new QLabel(centralWidget);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(520, 0, 111, 17));
-        label_4->setAlignment(Qt::AlignCenter);
-        pushButton_3 = new QPushButton(centralWidget);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setGeometry(QRect(410, 350, 100, 30));
-        horizontalScrollBar = new QScrollBar(centralWidget);
-        horizontalScrollBar->setObjectName(QStringLiteral("horizontalScrollBar"));
-        horizontalScrollBar->setGeometry(QRect(10, 320, 621, 20));
-        horizontalScrollBar->setOrientation(Qt::Horizontal);
+
+        gridLayout->addLayout(gridLayout_8, 1, 2, 1, 1);
+
+        Buttons = new QHBoxLayout();
+        Buttons->setSpacing(6);
+        Buttons->setObjectName(QStringLiteral("Buttons"));
+        ColorChangeButton = new QPushButton(centralWidget);
+        ColorChangeButton->setObjectName(QStringLiteral("ColorChangeButton"));
+
+        Buttons->addWidget(ColorChangeButton);
+
+        PlayButton = new QPushButton(centralWidget);
+        PlayButton->setObjectName(QStringLiteral("PlayButton"));
+
+        Buttons->addWidget(PlayButton);
+
+        StopButton = new QPushButton(centralWidget);
+        StopButton->setObjectName(QStringLiteral("StopButton"));
+
+        Buttons->addWidget(StopButton);
+
+        SpeedDropdown = new QComboBox(centralWidget);
+        SpeedDropdown->setObjectName(QStringLiteral("SpeedDropdown"));
+
+        Buttons->addWidget(SpeedDropdown);
+
+        QuitButton = new QPushButton(centralWidget);
+        QuitButton->setObjectName(QStringLiteral("QuitButton"));
+
+        Buttons->addWidget(QuitButton);
+
+        AddFrameButton = new QPushButton(centralWidget);
+        AddFrameButton->setObjectName(QStringLiteral("AddFrameButton"));
+
+        Buttons->addWidget(AddFrameButton);
+
+        DeleteFrameButton = new QPushButton(centralWidget);
+        DeleteFrameButton->setObjectName(QStringLiteral("DeleteFrameButton"));
+
+        Buttons->addWidget(DeleteFrameButton);
+
+        PrintButton = new QPushButton(centralWidget);
+        PrintButton->setObjectName(QStringLiteral("PrintButton"));
+
+        Buttons->addWidget(PrintButton);
+
+
+        gridLayout->addLayout(Buttons, 3, 0, 1, 3);
+
+        GridWidget = new QWidget(centralWidget);
+        GridWidget->setObjectName(QStringLiteral("GridWidget"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(GridWidget->sizePolicy().hasHeightForWidth());
+        GridWidget->setSizePolicy(sizePolicy);
+
+        gridLayout->addWidget(GridWidget, 1, 1, 1, 1);
+
+        animationArea = new QScrollArea(centralWidget);
+        animationArea->setObjectName(QStringLiteral("animationArea"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(animationArea->sizePolicy().hasHeightForWidth());
+        animationArea->setSizePolicy(sizePolicy1);
+        animationArea->setMinimumSize(QSize(0, 71));
+        animationArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        animationArea->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+        animationArea->setWidgetResizable(true);
+        scrollAreaWidgetContents = new QWidget();
+        scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 969, 173));
+        sizePolicy1.setHeightForWidth(scrollAreaWidgetContents->sizePolicy().hasHeightForWidth());
+        scrollAreaWidgetContents->setSizePolicy(sizePolicy1);
+        verticalLayout = new QVBoxLayout(scrollAreaWidgetContents);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        animationArea->setWidget(scrollAreaWidgetContents);
+
+        gridLayout->addWidget(animationArea, 2, 0, 1, 3);
+
+        ColorWidget = new QVBoxLayout();
+        ColorWidget->setSpacing(6);
+        ColorWidget->setObjectName(QStringLiteral("ColorWidget"));
+
+        gridLayout->addLayout(ColorWidget, 1, 0, 1, 1);
+
+        gridLayout->setRowMinimumHeight(2, 175);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 742, 21));
+        menuBar->setGeometry(QRect(0, 0, 989, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         MainWindow->setMenuBar(menuBar);
@@ -207,15 +262,18 @@ public:
         actionNew->setText(QApplication::translate("MainWindow", "New Show", Q_NULLPTR));
         actionQuit->setText(QApplication::translate("MainWindow", "Quit", Q_NULLPTR));
         actionExport->setText(QApplication::translate("MainWindow", "Export", Q_NULLPTR));
-        textBrowser_2->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Future location of main grid.</p></body></html>", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("MainWindow", "Play/Pause", Q_NULLPTR));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Stop", Q_NULLPTR));
-        comboBox->clear();
-        comboBox->insertItems(0, QStringList()
+        label->setText(QApplication::translate("MainWindow", "Colors", Q_NULLPTR));
+        GridLabel->setText(QApplication::translate("MainWindow", "Main Grid", Q_NULLPTR));
+        MovementLabel->setText(QApplication::translate("MainWindow", "Move Tiles", Q_NULLPTR));
+        LeftButton->setText(QApplication::translate("MainWindow", "Left", Q_NULLPTR));
+        RightButton->setText(QApplication::translate("MainWindow", "Right", Q_NULLPTR));
+        UpButton->setText(QApplication::translate("MainWindow", "Up", Q_NULLPTR));
+        DownButton->setText(QApplication::translate("MainWindow", "Down", Q_NULLPTR));
+        ColorChangeButton->setText(QApplication::translate("MainWindow", "Change Color", Q_NULLPTR));
+        PlayButton->setText(QApplication::translate("MainWindow", "Play/Pause", Q_NULLPTR));
+        StopButton->setText(QApplication::translate("MainWindow", "Stop", Q_NULLPTR));
+        SpeedDropdown->clear();
+        SpeedDropdown->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "0.25x", Q_NULLPTR)
          << QApplication::translate("MainWindow", "0.5x", Q_NULLPTR)
          << QApplication::translate("MainWindow", "0.75x", Q_NULLPTR)
@@ -224,19 +282,13 @@ public:
          << QApplication::translate("MainWindow", "1.5x", Q_NULLPTR)
          << QApplication::translate("MainWindow", "1.75", Q_NULLPTR)
         );
-        label_3->setText(QApplication::translate("MainWindow", "Main Grid", Q_NULLPTR));
-        textBrowser->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Future location of color wheel.</p></body></html>", Q_NULLPTR));
-        label_2->setText(QApplication::translate("MainWindow", "Colors", Q_NULLPTR));
-        pushButton_4->setText(QApplication::translate("MainWindow", "Up", Q_NULLPTR));
-        pushButton_6->setText(QApplication::translate("MainWindow", "Left", Q_NULLPTR));
-        pushButton_5->setText(QApplication::translate("MainWindow", "Down", Q_NULLPTR));
-        pushButton_7->setText(QApplication::translate("MainWindow", "Right", Q_NULLPTR));
-        label_4->setText(QApplication::translate("MainWindow", "Move Tiles", Q_NULLPTR));
-        pushButton_3->setText(QApplication::translate("MainWindow", "Quit", Q_NULLPTR));
+        QuitButton->setText(QApplication::translate("MainWindow", "Quit", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        AddFrameButton->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Add a frame to the end of the animation</p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        AddFrameButton->setText(QApplication::translate("MainWindow", "Add Frame", Q_NULLPTR));
+        DeleteFrameButton->setText(QApplication::translate("MainWindow", "Delete Frame", Q_NULLPTR));
+        PrintButton->setText(QApplication::translate("MainWindow", "Print", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
     } // retranslateUi
 

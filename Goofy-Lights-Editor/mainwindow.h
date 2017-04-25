@@ -7,6 +7,8 @@
 #include <QColorDialog>
 #include <vector>
 #include "grid.h"
+#include <QString>
+
 
 namespace Ui {
 class MainWindow;
@@ -38,6 +40,9 @@ private:
     QHBoxLayout *animationLayout;
 
     QWidget *animationFrame;
+
+    QString save_location = "\0";
+    QString export_location ="\0";
 
 private slots:
     void on_actionQuit_triggered();

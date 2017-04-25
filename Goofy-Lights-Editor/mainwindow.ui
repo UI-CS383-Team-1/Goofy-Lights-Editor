@@ -195,8 +195,6 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <zorder>gridLayoutWidget_7</zorder>
-      <zorder>animationArea</zorder>
      </widget>
     </item>
     <item row="2" column="0" colspan="3">
