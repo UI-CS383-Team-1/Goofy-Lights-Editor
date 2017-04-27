@@ -211,6 +211,62 @@ void MainWindow::on_actionLoad_triggered()
                         "All Files (*.*);;Goof Light Editor(*.gle)");
     QMessageBox::information(this,tr("File Name"),filename);
 
+
+    if(filename.isEmpty()) return;
+    else{
+        QFile fout(filename);
+        if(!fout.open(QIODevice::ReadOnly)){
+            QMessageBox::information(this, tr("Error"), fout.errorString());
+            return;
+        }
+        else{
+            QTextStream fout(&tan);
+            QString tmp;
+            tmp = fout.readLine();
+            if (QString::compare(tmp,"0.4") != 0)
+            {
+                QMessageBox::information(this, tr("Error"), "Incompatible version type!");
+                fout.close();
+                return;
+            }
+            QMessageBox::information(this, tr("Success"), "File get!");
+            /*tmp = fout.readLine(); //wmv storage
+            QString preparse(fout.readAll());
+            QStringList parsed;
+            parsed = preparse.split(QRegularExpression("\\s+"));
+            fin << "Number of Frames: " << parsed.first() << "\r\n";
+            int showFrames = parsed.first().toInt();
+            parsed.removeFirst();
+            fin << "Height of lightshow: " << parsed.first() << "\r\n";
+            int showHeight = parsed.first().toInt();
+            parsed.removeFirst();
+            fin << "Width of lightshow: " << parsed.first() << "\r\n";
+            int showWidth = parsed.first().toInt();
+            parsed.removeFirst();
+            int totalpoints = showWidth * showHeight;
+            fin << "Total number of grid spaces per frame: " << totalpoints << "\r\n";
+
+            for (int framepos = 0; framepos < showFrames; framepos++)
+            {
+                fin << "Frame " << framepos+1 << " time: " << parsed.first() << "\r\n";
+                parsed.removeFirst();
+                fin << "RGB values:" << "\r\n";
+                for (int col = 0; col < showHeight; col++)
+                {
+                    for (int row = 0; row < showWidth; row++)
+                    {
+                        for (int rgb = 0; rgb < 3; rgb++)
+                        {
+                            fin << parsed.first() << ',';
+                            parsed.removeFirst();
+                        }
+                        fin << "; ";
+                    }
+                    fin << "\r\n";
+                }
+            }*/
+        }
+        fout.close();
 }
 
 void MainWindow::on_actionExport_triggered()
