@@ -11,14 +11,17 @@
 
 namespace Ui {
 class MainWindow;
-}
+}   
 
 class MainWindow : public QMainWindow
-{
+        {
+
     Q_OBJECT
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+
+
     ~MainWindow();
 
 protected:
@@ -41,6 +44,14 @@ private:
     int currentAnimation = 0;
 
     int countDown;
+
+    int lastTimeThrough = 0;
+
+    int millisecondsToWait;
+
+    int accum = 0;
+
+    unsigned long int co = 0;
 
     float test;
 
@@ -75,8 +86,6 @@ private slots:
 
     void on_QuitButton_clicked();
 
-    void on_ColorChangeButton_clicked();
-
     void on_PrintButton_clicked();
 
     void setAnimation();
@@ -103,7 +112,7 @@ private slots:
 
     void on_UpRight_clicked();
 
-    void delay(int millisecondsToWait);
+    void delay(int millisecToWait);
 
     void on_SpeedDropdown_currentIndexChanged(int);
 

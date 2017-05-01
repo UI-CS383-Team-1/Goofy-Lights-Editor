@@ -21,18 +21,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->SpeedDropdown->setCurrentIndex(3);
 
+    timer = new QTimer(this);
+
     /* creating grid size with default 10*20 */
     grid = new Grid();
 
     //Clear main grid
-    Grid *initFrame = new Grid(QColor(187,187,187));
+    Grid *initFrame = new Grid(QColor(0,0,0));//(187,187,187));
 
     //Add initial state to animation
     initFrame->setTime(0);
     animation.push_back(*initFrame);
 
     //Set current color to grey
-    currentColor.setRgb(187, 187, 187);
+   // currentColor.setRgb(187, 187, 187);
+     currentColor.setRgb(0,0,0);
 
     //Build animation scroll area
     animationFrame = new QWidget;
@@ -151,7 +154,8 @@ void MainWindow::assignColor(){
 
 void MainWindow::on_actionQuit_triggered()
 {
-    QCoreApplication::quit();
+      exit(EXIT_SUCCESS);//EXIT_FAILURE);
+    //QCoreApplication::quit();
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -211,62 +215,6 @@ void MainWindow::on_actionLoad_triggered()
                         "All Files (*.*);;Goof Light Editor(*.gle)");
     QMessageBox::information(this,tr("File Name"),filename);
 
-
-    if(filename.isEmpty()) return;
-    else{
-        QFile fout(filename);
-        if(!fout.open(QIODevice::ReadOnly)){
-            QMessageBox::information(this, tr("Error"), fout.errorString());
-            return;
-        }
-        else{
-            QTextStream fout(&tan);
-            QString tmp;
-            tmp = fout.readLine();
-            if (QString::compare(tmp,"0.4") != 0)
-            {
-                QMessageBox::information(this, tr("Error"), "Incompatible version type!");
-                fout.close();
-                return;
-            }
-            QMessageBox::information(this, tr("Success"), "File get!");
-            /*tmp = fout.readLine(); //wmv storage
-            QString preparse(fout.readAll());
-            QStringList parsed;
-            parsed = preparse.split(QRegularExpression("\\s+"));
-            fin << "Number of Frames: " << parsed.first() << "\r\n";
-            int showFrames = parsed.first().toInt();
-            parsed.removeFirst();
-            fin << "Height of lightshow: " << parsed.first() << "\r\n";
-            int showHeight = parsed.first().toInt();
-            parsed.removeFirst();
-            fin << "Width of lightshow: " << parsed.first() << "\r\n";
-            int showWidth = parsed.first().toInt();
-            parsed.removeFirst();
-            int totalpoints = showWidth * showHeight;
-            fin << "Total number of grid spaces per frame: " << totalpoints << "\r\n";
-
-            for (int framepos = 0; framepos < showFrames; framepos++)
-            {
-                fin << "Frame " << framepos+1 << " time: " << parsed.first() << "\r\n";
-                parsed.removeFirst();
-                fin << "RGB values:" << "\r\n";
-                for (int col = 0; col < showHeight; col++)
-                {
-                    for (int row = 0; row < showWidth; row++)
-                    {
-                        for (int rgb = 0; rgb < 3; rgb++)
-                        {
-                            fin << parsed.first() << ',';
-                            parsed.removeFirst();
-                        }
-                        fin << "; ";
-                    }
-                    fin << "\r\n";
-                }
-            }*/
-        }
-        fout.close();
 }
 
 void MainWindow::on_actionExport_triggered()
@@ -325,7 +273,8 @@ void MainWindow::on_AddFrameButton_clicked()
 
             //Displays black as gray.
             if(temp.getCellColor(r, c) == QColor(0,0,0)){
-                color->setRgb(187, 187, 187);
+                //color->setRgb(187, 187, 187);
+                color->setRgb(0,0,0);
             }
             else{
                 *color = temp.getCellColor(r, c);
@@ -350,8 +299,6 @@ void MainWindow::on_AddFrameButton_clicked()
     //Update animation area
     ui->animationArea->update();
 }
-
-
 
 void MainWindow::on_DeleteFrameButton_clicked()
 {
@@ -382,7 +329,8 @@ void MainWindow::on_DeleteFrameButton_clicked()
 
                 //Displays black as gray.
                 if(tempGrid.getCellColor(r, c) == QColor(0,0,0)){
-                    color->setRgb(187, 187, 187);
+                    //color->setRgb(187, 187, 187);
+                    color->setRgb(0,0,0);
                 }
                 else{
                     *color = tempGrid.getCellColor(r, c);
@@ -418,7 +366,7 @@ void MainWindow::on_DeleteFrameButton_clicked()
 
                 QWidget *button = layout->itemAt(r * grid->getGridColumnCount() + c)->widget();
 
-                QColor *color = new QColor(187, 187, 187);
+                QColor *color = new QColor(0,0,0);//187, 187, 187);
                 QString qss = QString("background-color: %1").arg(color->name());
 
                 mainFrame->itemAtPosition(r, c)->widget()->setStyleSheet(qss);
@@ -439,12 +387,7 @@ void MainWindow::on_DeleteFrameButton_clicked()
 
 void MainWindow::on_QuitButton_clicked()
 {
-    QCoreApplication::quit();
-}
-
-void MainWindow::on_ColorChangeButton_clicked()
-{
-    currentColor = QColorDialog::getColor(Qt::white, this);
+      exit(EXIT_SUCCESS);//EXIT_FAILURE);
 }
 
 void MainWindow::on_PrintButton_clicked()
@@ -486,7 +429,8 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
 
             //Displays black as gray.
             if(animation[i].getCellColor(r, c) == QColor(0,0,0)){
-                color->setRgb(187, 187, 187);
+                //color->setRgb(187, 187, 187);
+                color->setRgb(0,0,0);
             }
             else{
                 *color = animation[i].getCellColor(r, c);
@@ -514,7 +458,8 @@ void MainWindow::setAnimation(){
 
             //Displays black as gray.
             if(animation[clicked].getCellColor(r, c) == QColor(0,0,0)){
-                color->setRgb(187, 187, 187);
+                //color->setRgb(187, 187, 187);
+                color->setRgb(0,0,0);
             }
             else{
                 *color = animation[clicked].getCellColor(r, c);
@@ -526,34 +471,56 @@ void MainWindow::setAnimation(){
     }
 }
 
+//Play back through the slides
 void MainWindow::on_PlayButton_clicked()
 {
-   //Start the timer
-   time2.start();
-   timer = new QTimer(this);
-   showTime();
-   connect(timer, SIGNAL(timeout ()), this, SLOT(showTime()));
-   timer->start(100 * test);
+int t;
 
-   unsigned long int co ;
-      int width = grid->getGridColumnCount();
+    countDown = 100 / test; // The speed of the count down is equal to the playback speed times 1/10 of a second
+
+    //Start the timer
+    time2.start();
+
+    int width = grid->getGridColumnCount();
     int height = grid->getGridRowCount();
 
-    if (isPlaying)                              // Switch between Play and Pause
+    // Switch between Play and Pause
+    if (isPlaying)
     {
+      //  if(!time2.isNull())
+        //   {
+              //  int t = time2.elapsed();
+               //std::cout << "t " << time2.elapsed() << "\n";
+//                accum += t;
+  //              std::cout << "accum " << accum << "\n";
+
+          // }
         isPlaying = false;
-        co = animation.size();
+        ui->PlayButton->setText("Resume");
+
         timer->stop();
-        updateFrame();
-        return;
     }
     else
     {
         isPlaying = true;
 
-//Play through all frames
-        for ( co = 0; co < animation.size(); co++){       //prop. probably here-ish
+        ui->PlayButton->setText("Pause");
+        showTime();
+        connect(timer, SIGNAL(timeout ()), this, SLOT(showTime()));
 
+        if ( co == animation.size() || co == 0){
+            lastTimeThrough = 0;
+             accum = 0;
+        }
+        //else
+          //  if(!time2.isNull())
+            //    time2.restart();
+        timer->start(100 /  test);
+
+        //Play through all frames
+        for (co = lastTimeThrough; co < animation.size(); co++){
+
+            lastTimeThrough++;
             for(int r = 0; r < height; r++){
                 for(int c = 0; c < width; c++){
                    grid->cellColors[r][c] = animation[co].getCellColor(r, c);
@@ -563,7 +530,8 @@ void MainWindow::on_PlayButton_clicked()
 
                     //Displays black as gray.
                     if(tempGrid.getCellColor(r, c) == QColor(0,0,0)){
-                        color->setRgb(187, 187, 187);
+                       // color->setRgb(187, 187, 187);
+                        color->setRgb(0,0,0);
                     }
                     else{
                         *color = tempGrid.getCellColor(r, c);
@@ -572,23 +540,27 @@ void MainWindow::on_PlayButton_clicked()
                      mainFrame->itemAtPosition(r, c)->widget()->setStyleSheet(qss);
                 }
             }
-
-            countDown = test * 100; // The speed of the count down is equal to the playback speed times 1/10 of a second
-            delay(countDown);
+             delay(countDown);
+             //t = time2.elapsed();
+             //accum += t;
 
         }
     }
-    timer->stop();
+   // std::cout << "t " << t << "\n";
+    //std::cout << "accum " << accum << "\n";
+
     isPlaying = false;
+    timer->stop();
+    ui->PlayButton->setText("Play/Pause");
 }
 
 //Delay the playback
-void MainWindow::delay( int millisecondsToWait )
+void MainWindow::delay(int millisecToWait )
 {
-    QTime dieTime = QTime::currentTime().addMSecs( millisecondsToWait );
-    while( QTime::currentTime() < dieTime )
+    QTime dieTime = QTime::currentTime().addMSecs( millisecToWait );
+    while(QTime::currentTime() < dieTime || isPlaying == false )
     {
-        QCoreApplication::processEvents( QEventLoop::AllEvents, 100 );
+        QApplication::processEvents(QEventLoop::AllEvents, 100);
     }
 }
 
@@ -604,7 +576,9 @@ void MainWindow::updateFrame()
 
             //Displays black as gray.
             if(tempGrid.getCellColor(r, c) == QColor(0,0,0)){
-                color->setRgb(187, 187, 187);
+               // color->setRgb(187, 187, 187);
+                color->setRgb(0,0,0);
+
             }
             else{
                 *color = tempGrid.getCellColor(r, c);
@@ -618,6 +592,14 @@ void MainWindow::updateFrame()
 void MainWindow::on_StopButton_clicked()
 {
     isPlaying = false;
+    lastTimeThrough = 0;
+    ui->PlayButton->setText("Play/Pause");
+
+    time2.restart();
+    timer->stop();
+    showTime();
+    connect(timer, SIGNAL(timeout ()), this, SLOT(showTime()));
+
     updateFrame();
 }
 
@@ -631,7 +613,8 @@ void MainWindow::on_UpButton_clicked()
                if (r+1 < height)
                     grid->cellColors[r][c] = grid->cellColors[r+1][c];
                else
-                    grid->cellColors[r][c].setRgb(187,187,187);
+                   // grid->cellColors[r][c].setRgb(187,187,187);
+                   grid->cellColors[r][c].setRgb(0,0,0);
            }
        }
        on_AddFrameButton_clicked();
@@ -649,7 +632,8 @@ void MainWindow::on_LeftButton_clicked()
                if (c+1 < width)
                     grid->cellColors[r][c] = grid->cellColors[r][c+1];
                else
-                    grid->cellColors[r][c].setRgb(187,187,187);
+                   grid->cellColors[r][c].setRgb(0,0,0);
+                   // grid->cellColors[r][c].setRgb(187,187,187);
            }
        }
      on_AddFrameButton_clicked();
@@ -664,7 +648,8 @@ void MainWindow::on_RightButton_clicked()
        for (int r = height - 1; r >= 0; r--) {
            for (int c = width - 1; c >= 0; c--) {
                if (c-1 < 0)
-                   grid->cellColors[r][c].setRgb(187,187,187);
+                   grid->cellColors[r][c].setRgb(0,0,0);
+                   //grid->cellColors[r][c].setRgb(187,187,187);
                else
                    grid->cellColors[r][c] = grid->cellColors[r][c-1];
            }
@@ -681,7 +666,8 @@ void MainWindow::on_DownButton_clicked()
     for (int r = height - 1; r >= 0; r--) {
         for (int c = width - 1; c >= 0; c--) {
                if (r-1 < 0)
-                   grid->cellColors[r][c].setRgb(187,187,187);
+                  // grid->cellColors[r][c].setRgb(187,187,187);
+                   grid->cellColors[r][c].setRgb(0,0,0);
                else
                    grid->cellColors[r][c] = grid->cellColors[r-1][c];
            }
@@ -698,7 +684,8 @@ void MainWindow::on_DownLeft_clicked()
     for (int r = height - 1; r >= 0; r--) {
         for (int c = width - 1; c >= 0; c--) {
                if (r-1 < 0)
-                   grid->cellColors[r][c].setRgb(187,187,187);
+                  // grid->cellColors[r][c].setRgb(187,187,187);
+                   grid->cellColors[r][c].setRgb(0,0,0);
                else
                    grid->cellColors[r][c] = grid->cellColors[r-1][c];
            }
@@ -709,7 +696,8 @@ void MainWindow::on_DownLeft_clicked()
             if (c+1 < width)
                  grid->cellColors[r][c] = grid->cellColors[r][c+1];
             else
-                 grid->cellColors[r][c].setRgb(187,187,187);
+                // grid->cellColors[r][c].setRgb(187,187,187);
+                grid->cellColors[r][c].setRgb(0,0,0);
         }
     }
        on_AddFrameButton_clicked();
@@ -729,7 +717,8 @@ void MainWindow::on_UpLeft_clicked()
                if (r+1 < height)
                     grid->cellColors[r][c] = grid->cellColors[r+1][c];
                else
-                    grid->cellColors[r][c].setRgb(187,187,187);
+                    //grid->cellColors[r][c].setRgb(187,187,187);
+                   grid->cellColors[r][c].setRgb(0,0,0);
            }
        }
 
@@ -738,7 +727,8 @@ void MainWindow::on_UpLeft_clicked()
             if (c+1 < width)
                  grid->cellColors[r][c] = grid->cellColors[r][c+1];
             else
-                 grid->cellColors[r][c].setRgb(187,187,187);
+                 //grid->cellColors[r][c].setRgb(187,187,187);
+                grid->cellColors[r][c].setRgb(0,0,0);
         }
     }
        on_AddFrameButton_clicked();
@@ -756,14 +746,44 @@ void MainWindow::on_UpRight_clicked()
                if (r+1 < height)
                     grid->cellColors[r][c] = grid->cellColors[r+1][c];
                else
-                    grid->cellColors[r][c].setRgb(187,187,187);
+                   // grid->cellColors[r][c].setRgb(187,187,187);
+                   grid->cellColors[r][c].setRgb(0,0,0);
            }
        }
 
     for (int r = height - 1; r >= 0; r--) {
         for (int c = width - 1; c >= 0; c--) {
             if (c-1 < 0)
-                grid->cellColors[r][c].setRgb(187,187,187);
+               // grid->cellColors[r][c].setRgb(187,187,187);
+                grid->cellColors[r][c].setRgb(0,0,0);
+            else
+                grid->cellColors[r][c] = grid->cellColors[r][c-1];
+        }
+    }
+     on_AddFrameButton_clicked();
+     updateFrame();
+}
+
+void MainWindow::on_DownRight_clicked()
+{
+    int width = grid->getGridColumnCount();
+    int height = grid->getGridRowCount();
+
+    for (int r = height - 1; r >= 0; r--) {
+        for (int c = width - 1; c >= 0; c--) {
+               if (r-1 < 0)
+                   //grid->cellColors[r][c].setRgb(187,187,187);
+                   grid->cellColors[r][c].setRgb(0,0,0);
+               else
+                   grid->cellColors[r][c] = grid->cellColors[r-1][c];
+           }
+       }
+
+    for (int r = height - 1; r >= 0; r--) {
+        for (int c = width - 1; c >= 0; c--) {
+            if (c-1 < 0)
+               // grid->cellColors[r][c].setRgb(187,187,187);
+                grid->cellColors[r][c].setRgb(0,0,0);
             else
                 grid->cellColors[r][c] = grid->cellColors[r][c-1];
         }
@@ -781,42 +801,16 @@ void MainWindow::on_SpeedDropdown_currentIndexChanged(int)
     test = num ;
 }
 
-void MainWindow::on_DownRight_clicked()
-{
-    int width = grid->getGridColumnCount();
-    int height = grid->getGridRowCount();
-
-    for (int r = height - 1; r >= 0; r--) {
-        for (int c = width - 1; c >= 0; c--) {
-               if (r-1 < 0)
-                   grid->cellColors[r][c].setRgb(187,187,187);
-               else
-                   grid->cellColors[r][c] = grid->cellColors[r-1][c];
-           }
-       }
-
-    for (int r = height - 1; r >= 0; r--) {
-        for (int c = width - 1; c >= 0; c--) {
-            if (c-1 < 0)
-                grid->cellColors[r][c].setRgb(187,187,187);
-            else
-                grid->cellColors[r][c] = grid->cellColors[r][c-1];
-        }
-    }
-     on_AddFrameButton_clicked();
-     updateFrame();
-}
-
 void MainWindow::showTime(){
 
-            int secs = time2.elapsed() / 1000;
+            int milsecs = (time2.elapsed()) / 10;       //+ accum
+            int secs = (milsecs / 100);
             int mins = (secs / 60) % 60;
-            int hours = (secs / 3600);
-            secs = secs % 60;
+            milsecs = milsecs % 100;
             ui->Time_label->setText(QString("%1:%2:%3")
-            .arg(hours, 2, 10, QLatin1Char('0'))
             .arg(mins, 2, 10, QLatin1Char('0'))
-            .arg(secs, 2, 10, QLatin1Char('0')) );
+            .arg(secs, 2, 10, QLatin1Char('0'))
+            .arg(milsecs, 2, 10, QLatin1Char('0')) );
 
 }
 

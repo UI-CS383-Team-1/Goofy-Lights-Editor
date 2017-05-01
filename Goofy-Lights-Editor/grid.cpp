@@ -10,7 +10,7 @@ Grid::Grid()
      {
          cellColors[i] = new QColor[columns];
      }
-    defaultColor = QColor(187,187,187);  //set default color to grey
+    defaultColor = QColor(0,0,0);//(187,187,187);  //set default color to grey
     setAllCellColor(defaultColor);
 }
 
@@ -37,7 +37,7 @@ Grid::Grid(int rowCount, int columnCount)
     {
         cellColors[i] = new QColor[columns];
     }
-    defaultColor = QColor(187,187,187);  //set default color to grey
+    defaultColor = QColor(0,0,0);//(187,187,187);  //set default color to grey
     setAllCellColor(defaultColor);
 }
 
