@@ -8,6 +8,11 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <iostream>
+#include <QTextStream>
+#include <QString>
+#include <QStringList>
+#include <QFile>
+#include <QRegularExpression>
 #include <QSpacerItem>
 #include <QtCore>
 #include <QRect>
