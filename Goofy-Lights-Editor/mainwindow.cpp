@@ -222,19 +222,20 @@ void MainWindow::on_actionLoad_triggered()
  
     if(filename.isEmpty()) return;
      else{
-         QFile fout(filename);
-         if(!fout.open(QIODevice::ReadOnly)){
-             QMessageBox::information(this, tr("Error"), fout.errorString());
+         QFile data(filename);
+         QTextStream fout(&data);
+         if(!data.open(QIODevice::ReadOnly)){
+             QMessageBox::information(this, tr("Error"), data.errorString());
              return;
          }
          else{
-             QTextStream fout(&tan);
+
              QString tmp;
-             tmp = fout.readLine();
+             tmp = data.readLine();
              if (QString::compare(tmp,"0.4") != 0)
              {
                  QMessageBox::information(this, tr("Error"), "Incompatible version type!");
-                 fout.close();
+                 data.close();
                  return;
              }
              QMessageBox::information(this, tr("Success"), "File get!");
@@ -274,7 +275,8 @@ void MainWindow::on_actionLoad_triggered()
                  }
              }*/
          }
-          fout.close();
+          data.close();
+    }
 }
 
 void MainWindow::on_actionExport_triggered()
