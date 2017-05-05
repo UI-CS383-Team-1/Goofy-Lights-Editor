@@ -536,7 +536,6 @@ void MainWindow::setAnimation(){
 //Play back through the slides
 void MainWindow::on_PlayButton_clicked()
 {
-int t;
 
     countDown = 100 / test; // The speed of the count down is equal to the playback speed times 1/10 of a second
 
