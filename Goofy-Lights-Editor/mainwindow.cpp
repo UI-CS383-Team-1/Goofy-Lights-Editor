@@ -242,7 +242,7 @@ void MainWindow::on_actionLoad_triggered()
                 std::cout << "red" << std::endl;
                 QMessageBox::information(this, tr("Extension"), ".gle");
                 QString wholeFile(data.readAll());
-                qDebug() << wholeFile;
+                //qDebug() << wholeFile;
                 QStringList splitFile = wholeFile.split(QRegularExpression("\\s+"));
                 int numFrames = splitFile.first().toInt();
                 splitFile.removeFirst();
@@ -257,15 +257,20 @@ void MainWindow::on_actionLoad_triggered()
                     {
                         for(int c = 0; c < tmpGrid.getGridColumnCount(); c++)
                         {
+                            std::cout << splitFile.first().toInt() << " ";
                             tmpColor.setRed(splitFile.first().toInt());
                             splitFile.removeFirst();
+                            std::cout << splitFile.first().toInt() << " ";
                             tmpColor.setGreen(splitFile.first().toInt());
                             splitFile.removeFirst();
+                            std::cout << splitFile.first().toInt() << " ";
                             tmpColor.setBlue(splitFile.first().toInt());
                             splitFile.removeFirst();
                             tmpGrid.setCellColor(tmpColor,r,c);
                         }
+                        std::cout << std::endl;
                     }
+                    std::cout << animation.size() << std::endl;
                     animation.push_back(tmpGrid);
                 }
                 update_screen();
@@ -333,6 +338,8 @@ void MainWindow::clear_animation(){
 
 void MainWindow::update_screen(){
 
+    std::cout << "Red top corner: " << animation[0].getCellColor(0, 0).red() << std::endl;
+
     //Remove spacer
     qDebug() << animationLayout->count() << " " << animation.size();
     QWidget *tmp = animationLayout->itemAt(1)->widget();
@@ -342,9 +349,6 @@ void MainWindow::update_screen(){
     Grid initFrame = animation[0];
     QWidget *w = animationLayout->itemAt(0)->widget();
     QLayout *layout = w->layout();
-
-    initFrame.setAllCellColor(QColor(0, 0, 0));
-    grid->setAllCellColor(QColor(0, 0, 0));
 
     //Clear 2d array and QGridLayout of color
     for(int r = 0; r < grid->getGridRowCount(); r++){
@@ -549,8 +553,10 @@ void MainWindow::on_DeleteFrameButton_clicked()
         }
 
         //Remove widget from layout and delete widget
-        QWidget *tmp = animationLayout->itemAt(currentAnimation+1)->widget();
-        animationLayout->removeWidget(animationLayout->itemAt(currentAnimation+1)->widget());
+        int frame_to_remove = currentAnimation + 1;
+        if(currentAnimation == 0) frame_to_remove--;
+        QWidget *tmp = animationLayout->itemAt(frame_to_remove)->widget();
+        animationLayout->removeWidget(animationLayout->itemAt(frame_to_remove)->widget());
         delete tmp;
 
         //Added to handle the sizing of the animation
