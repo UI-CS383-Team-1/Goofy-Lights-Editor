@@ -24,6 +24,19 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
+    /*Save via ctrl+S*/
+    QAction *key_save = new QAction(this);
+    key_save->setShortcut(Qt::Key_S | Qt::CTRL);
+    connect(key_save, SIGNAL(triggered()), this, SLOT(on_actionSave_triggered()));
+    this->addAction(key_save);
+
+    /*Export via ctrl+E*/
+    QAction *key_export = new QAction(this);
+    key_export->setShortcut(Qt::Key_E | Qt::CTRL);
+    connect(key_export, SIGNAL(triggered()), this, SLOT(on_actionExport_triggered()));
+    this->addAction(key_export);
+
     ui->setupUi(this);
     ui->SpeedDropdown->setCurrentIndex(3);
 
@@ -167,6 +180,41 @@ void MainWindow::on_actionQuit_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
+    if(save_location=="\0")
+        on_actionSave_As_triggered();
+    else{
+            QFile file(save_location);
+            if(!file.open(QIODevice::WriteOnly)){
+                QMessageBox::information(this, tr("Error"), file.errorString());
+                return;
+            }
+            else{
+//                file.write(save_location.toStdString().c_str());              //currently unused but may be used depending on
+//                file.write("\n");                                             //the design spec of .gle and loading
+                for(unsigned int i = 0; i < animation.size(); i++){
+                    file.write(std::to_string(animation[i].getTime()).c_str());
+                    file.write("\n");
+                    for(int r = 0; r < grid->getGridRowCount(); r++){
+                        for(int c = 0; c < grid->getGridColumnCount(); c++){
+                            //Write rgb into file
+                            QColor color = animation[i].getCellColor(r,c);
+
+                            file.write(std::to_string(color.red()).c_str());
+                            file.write(" ");
+
+                            file.write(std::to_string(color.green()).c_str());
+                            file.write(" ");
+
+                            file.write(std::to_string(color.blue()).c_str());
+                            file.write(" ");
+
+                        }
+                        file.write("\n");
+                    }
+                }
+            }
+            QMessageBox::information(this,tr("Save Notification"),"File Saved");
+        }
 
 }
 
@@ -185,7 +233,7 @@ void MainWindow::on_actionSave_As_triggered()
             return;
         }
         else{
-            //Write file *phew*
+            save_location=filename;
             file.write(std::to_string(animation.size()).c_str());
             file.write("\n");
             for(unsigned int i = 0; i < animation.size(); i++){
@@ -212,7 +260,7 @@ void MainWindow::on_actionSave_As_triggered()
         }
     }
 
-    QMessageBox::information(this,tr("File Name"),filename);
+//    QMessageBox::information(this,tr("File Name"),filename);
 
 }
 
@@ -459,8 +507,48 @@ void MainWindow::on_actionExport_triggered()
                         tr("Export Project"),
                         QDir::homePath(),
                         "TAN file (*.tan)");
-    QMessageBox::information(this,tr("File Name"),filename);
+//    QMessageBox::information(this,tr("File Name"),filename);
 
+    if(filename.isEmpty()) return;
+    else{
+        QFile file(filename);
+        if(!file.open(QIODevice::WriteOnly)){
+            QMessageBox::information(this, tr("Error"), file.errorString());
+            return;
+        }
+        else{
+            file.write("0.3\n");
+            file.write("NoAudioFile");  //temorary will add string variable to hold audio file name later
+            file.write("\n");
+            file.write(std::to_string(animation.size()).c_str());
+            file.write(" ");
+            file.write("10"/*std::to_string(StopR-StartR).c_str()*/);   //currently hard coded to size of 10 by 20
+            file.write(" ");                                            //will be updated later when working space is added
+            file.write("20"/*std::to_string(StopC-StartC).c_str())*/);
+            file.write("\n");
+            for(int i = 0; i < animation.size(); i++){
+                file.write(std::to_string(animation[i].getTime()).c_str());  //this will probably be changed later to QTime::toString
+                file.write("\n");                                       //and the time variable in the animation struct changed to
+                                                                        //a QTime object for proper file output
+
+                for(int r = 0/*StartR*/; r <10 /*StopR*/; r++){                            //these hard coded numbers will be changed later
+                    for(int c = 0 /*StartC*/; c < 20 /*StopC*/; c++){                        //when working grid size is added
+                        QColor color = animation[i].getCellColor(r,c);
+
+                        file.write(std::to_string(color.red()).c_str());
+                        file.write(" ");
+
+                        file.write(std::to_string(color.green()).c_str());
+                        file.write(" ");
+
+                        file.write(std::to_string(color.blue()).c_str());
+                        file.write(" ");
+                    }
+                    file.write("\n");
+             }
+            }
+        }
+    }
 
 }
 

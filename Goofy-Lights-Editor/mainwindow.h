@@ -8,6 +8,7 @@
 #include <QTime>
 #include <vector>
 #include "grid.h"
+#include <Qstring>
 
 namespace Ui {
 class MainWindow;
@@ -66,6 +67,10 @@ private:
     QTime totalTime, sinceStart;
 
     QTimer *timer;
+
+    QString save_location = "\0";
+
+//    QString export_location ="\0";
 
 private slots:
     void on_actionQuit_triggered();
