@@ -18,13 +18,28 @@
 #include <QRect>
 #include <QScrollArea>
 #include <QSpacerItem>
+#include <QDoubleSpinBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
+    /*Save via ctrl+S*/
+    QAction *key_save = new QAction(this);
+    key_save->setShortcut(Qt::Key_S | Qt::CTRL);
+    connect(key_save, SIGNAL(triggered()), this, SLOT(on_actionSave_triggered()));
+    this->addAction(key_save);
+
+    /*Export via ctrl+E*/
+    QAction *key_export = new QAction(this);
+    key_export->setShortcut(Qt::Key_E | Qt::CTRL);
+    connect(key_export, SIGNAL(triggered()), this, SLOT(on_actionExport_triggered()));
+    this->addAction(key_export);
+
     ui->setupUi(this);
     ui->SpeedDropdown->setCurrentIndex(3);
+
 
     timer = new QTimer(this);
 
@@ -134,15 +149,28 @@ void MainWindow::assignColor(){
     QColor *color = new QColor(currentColor.red(), currentColor.green(), currentColor.blue());
 
     grid->cellColors[x][y] = currentColor;
+<<<<<<< HEAD
+
+    //and current animation frame
+    Grid temp = animation[currentAnimation];
+    temp.setCellColor(*color, x, y);
+=======
 
     //and current animation frame
     Grid temp = animation[currentAnimation];
     temp.setCellColor(*color, x, y);
 
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
 
     QWidget *w = animationLayout->itemAt(currentAnimation)->widget();
     QLayout *layout = w->layout();
 
+<<<<<<< HEAD
+    QWidget *w = animationLayout->itemAt(currentAnimation)->widget();
+    QLayout *layout = w->layout();
+
+=======
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
     QWidget *button = layout->itemAt(x * grid->getGridColumnCount() + y)->widget();
 
     //Set color to current color
@@ -165,6 +193,41 @@ void MainWindow::on_actionQuit_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
+    if(save_location=="\0")
+        on_actionSave_As_triggered();
+    else{
+            QFile file(save_location);
+            if(!file.open(QIODevice::WriteOnly)){
+                QMessageBox::information(this, tr("Error"), file.errorString());
+                return;
+            }
+            else{
+//                file.write(save_location.toStdString().c_str());              //currently unused but may be used depending on
+//                file.write("\n");                                             //the design spec of .gle and loading
+                for(unsigned int i = 0; i < animation.size(); i++){
+                    file.write(std::to_string(animation[i].getTime()).c_str());
+                    file.write("\n");
+                    for(int r = 0; r < grid->getGridRowCount(); r++){
+                        for(int c = 0; c < grid->getGridColumnCount(); c++){
+                            //Write rgb into file
+                            QColor color = animation[i].getCellColor(r,c);
+
+                            file.write(std::to_string(color.red()).c_str());
+                            file.write(" ");
+
+                            file.write(std::to_string(color.green()).c_str());
+                            file.write(" ");
+
+                            file.write(std::to_string(color.blue()).c_str());
+                            file.write(" ");
+
+                        }
+                        file.write("\n");
+                    }
+                }
+            }
+            QMessageBox::information(this,tr("Save Notification"),"File Saved");
+        }
 
 }
 
@@ -183,7 +246,11 @@ void MainWindow::on_actionSave_As_triggered()
             return;
         }
         else{
+<<<<<<< HEAD
             //Write file *phew*
+=======
+            save_location=filename;
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
             file.write(std::to_string(animation.size()).c_str());
             file.write("\n");
             for(unsigned int i = 0; i < animation.size(); i++){
@@ -210,7 +277,7 @@ void MainWindow::on_actionSave_As_triggered()
         }
     }
 
-    QMessageBox::information(this,tr("File Name"),filename);
+//    QMessageBox::information(this,tr("File Name"),filename);
 
 }
 
@@ -242,7 +309,11 @@ void MainWindow::on_actionLoad_triggered()
                 std::cout << "red" << std::endl;
                 QMessageBox::information(this, tr("Extension"), ".gle");
                 QString wholeFile(data.readAll());
+<<<<<<< HEAD
                 qDebug() << wholeFile;
+=======
+                //qDebug() << wholeFile;
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
                 QStringList splitFile = wholeFile.split(QRegularExpression("\\s+"));
                 int numFrames = splitFile.first().toInt();
                 splitFile.removeFirst();
@@ -257,15 +328,31 @@ void MainWindow::on_actionLoad_triggered()
                     {
                         for(int c = 0; c < tmpGrid.getGridColumnCount(); c++)
                         {
+<<<<<<< HEAD
                             tmpColor.setRed(splitFile.first().toInt());
                             splitFile.removeFirst();
                             tmpColor.setGreen(splitFile.first().toInt());
                             splitFile.removeFirst();
+=======
+                            std::cout << splitFile.first().toInt() << " ";
+                            tmpColor.setRed(splitFile.first().toInt());
+                            splitFile.removeFirst();
+                            std::cout << splitFile.first().toInt() << " ";
+                            tmpColor.setGreen(splitFile.first().toInt());
+                            splitFile.removeFirst();
+                            std::cout << splitFile.first().toInt() << " ";
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
                             tmpColor.setBlue(splitFile.first().toInt());
                             splitFile.removeFirst();
                             tmpGrid.setCellColor(tmpColor,r,c);
                         }
+<<<<<<< HEAD
                     }
+=======
+                        std::cout << std::endl;
+                    }
+                    std::cout << animation.size() << std::endl;
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
                     animation.push_back(tmpGrid);
                 }
                 update_screen();
@@ -277,6 +364,7 @@ void MainWindow::on_actionLoad_triggered()
                 if (QString::compare(tmp,"0.4") != 0)
                 {
                     QMessageBox::information(this, tr("Extension"), ".tan or .tan2");
+<<<<<<< HEAD
                     data.close();
                     return;
                 }
@@ -316,6 +404,69 @@ void MainWindow::on_actionLoad_triggered()
                         fin << "\r\n";
                     }
                 }*/
+=======
+                    //data.close();
+                    //return;
+                }
+                QMessageBox::information(this, tr("Success"), "File get!");
+                tmp = data.readLine(); //wmv storage
+                QString preparse(fout.readAll());
+                QStringList splitFile;
+                qDebug() << preparse;
+                splitFile = preparse.split(QRegularExpression("\\s+"));
+                int showFrames = splitFile.first().toInt();
+                splitFile.removeFirst();
+                int showHeight = splitFile.first().toInt();
+                if (showHeight > grid->getGridColumnCount())
+                {
+                    QMessageBox::information(this, tr("Error"), "File height too large!");
+                    data.close();
+                    return;
+                }
+                splitFile.removeFirst();
+                //int drawColUpper = (showHeight/2) + ((grid->getGridColumnCount())/2);
+                //int drawColLower = ((grid->getGridColumnCount())/2) - (showHeight/2);
+                int showWidth = splitFile.first().toInt();
+                if (showWidth > grid->getGridRowCount())
+                {
+                    QMessageBox::information(this, tr("Error"), "File width too large!");
+                    data.close();
+                    return;
+                }
+                //int drawRowUpper = (showWidth/2) + ((grid->getGridRowCount())/2);
+                //int drawRowLower = ((grid->getGridRowCount())/2) - (showWidth/2);
+                splitFile.removeFirst();
+                QColor tmpColor;
+                for (int framepos = 0; framepos < showFrames; framepos++)
+                {
+                    Grid tmpGrid(10,20);
+                    tmpGrid.setTime(splitFile.first().toInt());
+                    splitFile.removeFirst();
+                    for(int r = 0; r < tmpGrid.getGridRowCount(); r++)
+                    {
+                        for(int c = 0; c < tmpGrid.getGridColumnCount(); c++)
+                        {
+                            if((c < showHeight) && (r < showWidth))
+                            {
+                                tmpColor.setRed(splitFile.first().toInt());
+                                splitFile.removeFirst();
+                                tmpColor.setGreen(splitFile.first().toInt());
+                                splitFile.removeFirst();
+                                tmpColor.setBlue(splitFile.first().toInt());
+                                splitFile.removeFirst();
+                                tmpGrid.setCellColor(tmpColor,r,c);
+                            }
+                            else
+                            {
+                                tmpColor.setRgb(0,0,0);
+                                tmpGrid.setCellColor(tmpColor,r,c);
+                            }
+                        }
+                    }
+                    animation.push_back(tmpGrid);
+                }
+                update_screen();
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
             }
 
          }
@@ -333,6 +484,11 @@ void MainWindow::clear_animation(){
 
 void MainWindow::update_screen(){
 
+<<<<<<< HEAD
+=======
+    std::cout << "Red top corner: " << animation[0].getCellColor(0, 0).red() << std::endl;
+
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
     //Remove spacer
     qDebug() << animationLayout->count() << " " << animation.size();
     QWidget *tmp = animationLayout->itemAt(1)->widget();
@@ -343,9 +499,12 @@ void MainWindow::update_screen(){
     QWidget *w = animationLayout->itemAt(0)->widget();
     QLayout *layout = w->layout();
 
+<<<<<<< HEAD
     initFrame.setAllCellColor(QColor(0, 0, 0));
     grid->setAllCellColor(QColor(0, 0, 0));
 
+=======
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
     //Clear 2d array and QGridLayout of color
     for(int r = 0; r < grid->getGridRowCount(); r++){
         for(int c = 0; c < grid->getGridColumnCount(); c++){
@@ -362,7 +521,11 @@ void MainWindow::update_screen(){
         }
     }
 
+<<<<<<< HEAD
     for(int i = 1; i < animation.size(); i++){
+=======
+    for(unsigned long int i = 1; i < animation.size(); i++){
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
         //Remove the spacer to allow for addition of frames
         //Create new state to add to the animation
         Grid temp;
@@ -431,8 +594,48 @@ void MainWindow::on_actionExport_triggered()
                         tr("Export Project"),
                         QDir::homePath(),
                         "TAN file (*.tan)");
-    QMessageBox::information(this,tr("File Name"),filename);
+//    QMessageBox::information(this,tr("File Name"),filename);
 
+    if(filename.isEmpty()) return;
+    else{
+        QFile file(filename);
+        if(!file.open(QIODevice::WriteOnly)){
+            QMessageBox::information(this, tr("Error"), file.errorString());
+            return;
+        }
+        else{
+            file.write("0.3\n");
+            file.write("NoAudioFile");  //temorary will add string variable to hold audio file name later
+            file.write("\n");
+            file.write(std::to_string(animation.size()).c_str());
+            file.write(" ");
+            file.write("10"/*std::to_string(StopR-StartR).c_str()*/);   //currently hard coded to size of 10 by 20
+            file.write(" ");                                            //will be updated later when working space is added
+            file.write("20"/*std::to_string(StopC-StartC).c_str())*/);
+            file.write("\n");
+            for(int i = 0; i < animation.size(); i++){
+                file.write(std::to_string(animation[i].getTime()).c_str());  //this will probably be changed later to QTime::toString
+                file.write("\n");                                       //and the time variable in the animation struct changed to
+                                                                        //a QTime object for proper file output
+
+                for(int r = 0/*StartR*/; r <10 /*StopR*/; r++){                            //these hard coded numbers will be changed later
+                    for(int c = 0 /*StartC*/; c < 20 /*StopC*/; c++){                        //when working grid size is added
+                        QColor color = animation[i].getCellColor(r,c);
+
+                        file.write(std::to_string(color.red()).c_str());
+                        file.write(" ");
+
+                        file.write(std::to_string(color.green()).c_str());
+                        file.write(" ");
+
+                        file.write(std::to_string(color.blue()).c_str());
+                        file.write(" ");
+                    }
+                    file.write("\n");
+             }
+            }
+        }
+    }
 
 }
 
@@ -549,8 +752,10 @@ void MainWindow::on_DeleteFrameButton_clicked()
         }
 
         //Remove widget from layout and delete widget
-        QWidget *tmp = animationLayout->itemAt(currentAnimation+1)->widget();
-        animationLayout->removeWidget(animationLayout->itemAt(currentAnimation+1)->widget());
+        int frame_to_remove = currentAnimation + 1;
+        if(currentAnimation == 0) frame_to_remove--;
+        QWidget *tmp = animationLayout->itemAt(frame_to_remove)->widget();
+        animationLayout->removeWidget(animationLayout->itemAt(frame_to_remove)->widget());
         delete tmp;
 
         //Added to handle the sizing of the animation
@@ -600,7 +805,11 @@ void MainWindow::on_QuitButton_clicked()
 
 void MainWindow::on_PrintButton_clicked()
 {
+<<<<<<< HEAD
     for(int i = 0; i < animation.size(); i++){
+=======
+    for(unsigned long int i = 0; i < animation.size(); i++){
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
         for(int r = 0; r < grid->getGridRowCount(); r++){
             for(int c = 0; c < grid->getGridColumnCount(); c++){
                 QColor color = animation[i].getCellColor(r, c);
@@ -683,11 +892,15 @@ void MainWindow::setAnimation(){
 //Play back through the slides
 void MainWindow::on_PlayButton_clicked()
 {
+<<<<<<< HEAD
 
     countDown = 100 / test; // The speed of the count down is equal to the playback speed times 1/10 of a second
 
     //Start the timer
     time2.start();
+=======
+    countDown = 100 / test;
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
 
     int width = grid->getGridColumnCount();
     int height = grid->getGridRowCount();
@@ -695,35 +908,30 @@ void MainWindow::on_PlayButton_clicked()
     // Switch between Play and Pause
     if (isPlaying)
     {
-      //  if(!time2.isNull())
-        //   {
-              //  int t = time2.elapsed();
-               //std::cout << "t " << time2.elapsed() << "\n";
-//                accum += t;
-  //              std::cout << "accum " << accum << "\n";
-
-          // }
         isPlaying = false;
         ui->PlayButton->setText("Resume");
-
         timer->stop();
+        totalTime = totalTime.addMSecs(sinceStart.restart());
     }
     else
     {
-        isPlaying = true;
 
+        //Start the timer
+        totalTime.start();
+
+        isPlaying = true;
         ui->PlayButton->setText("Pause");
-        showTime();
-        connect(timer, SIGNAL(timeout ()), this, SLOT(showTime()));
 
         if ( co == animation.size() || co == 0){
             lastTimeThrough = 0;
-             accum = 0;
         }
-        //else
-          //  if(!time2.isNull())
-            //    time2.restart();
-        timer->start(100 /  test);
+        else
+            sinceStart.restart();
+
+        showTime();
+        connect(timer, SIGNAL(timeout ()), this, SLOT(showTime()));
+
+        timer->start(10);
 
         //Play through all frames
         for (co = lastTimeThrough; co < animation.size(); co++){
@@ -749,17 +957,14 @@ void MainWindow::on_PlayButton_clicked()
                 }
             }
              delay(countDown);
-             //t = time2.elapsed();
-             //accum += t;
-
         }
+        timer->stop();
     }
-   // std::cout << "t " << t << "\n";
-    //std::cout << "accum " << accum << "\n";
+
+    if(isPlaying)
+        ui->PlayButton->setText("Play/Pause");
 
     isPlaying = false;
-    timer->stop();
-    ui->PlayButton->setText("Play/Pause");
 }
 
 //Delay the playback
@@ -803,7 +1008,7 @@ void MainWindow::on_StopButton_clicked()
     lastTimeThrough = 0;
     ui->PlayButton->setText("Play/Pause");
 
-    time2.restart();
+    totalTime.restart();
     timer->stop();
     showTime();
     connect(timer, SIGNAL(timeout ()), this, SLOT(showTime()));
@@ -1011,7 +1216,7 @@ void MainWindow::on_SpeedDropdown_currentIndexChanged(int)
 
 void MainWindow::showTime(){
 
-            int milsecs = (time2.elapsed()) / 10;       //+ accum
+            int milsecs = (totalTime.elapsed()) / 10;
             int secs = (milsecs / 100);
             int mins = (secs / 60) % 60;
             milsecs = milsecs % 100;
@@ -1022,3 +1227,7 @@ void MainWindow::showTime(){
 
 }
 
+void MainWindow::on_SpeedChangeSpinBox_valueChanged(double arg1)
+{
+    test = arg1;
+}

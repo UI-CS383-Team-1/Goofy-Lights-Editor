@@ -8,6 +8,7 @@
 #include <QTime>
 #include <vector>
 #include "grid.h"
+#include <Qstring>
 
 namespace Ui {
 class MainWindow;
@@ -53,7 +54,7 @@ private:
 
     unsigned long int co = 0;
 
-    float test;
+    double test = 1;
 
     bool isPlaying = false;
 
@@ -63,8 +64,17 @@ private:
 
     QTime time2;
 
+    QTime totalTime, sinceStart;
+
+<<<<<<< HEAD
+=======
     QTimer *timer;
 
+    QString save_location = "\0";
+
+//    QString export_location ="\0";
+
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
 private slots:
     void on_actionQuit_triggered();
 
@@ -122,6 +132,10 @@ private slots:
 
     void update_screen();
 
+<<<<<<< HEAD
+=======
+    void on_SpeedChangeSpinBox_valueChanged(double arg1);
+>>>>>>> ac796f2a70e834727955ce2dda71137e3d8215ab
 };
 
 #endif // MAINWINDOW_H

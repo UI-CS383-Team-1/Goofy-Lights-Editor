@@ -92,7 +92,7 @@ TABLE OF CONTENTS
 
 
 \clearpage\section{General}
-This Design Specification for Goofy Lights Editor outlines program functions that have been added up to now. The sub-teams decided in Week Three have remained approximately the same through out the course of this project. However some of the teams compartmentalized further as the individuals worked on their own areas of the sub-projects.  
+This Design Specification for Goofy Lights Editor outlines program functions that have been added up to now. The sub-teams decided in Week Three have remained approximately the same through out the course of this project. %However some of the teams compartmentalized further as the individuals worked on their own areas of the sub-projects.  
 
 
 \bigskip
@@ -127,18 +127,18 @@ Week Nine (5/2 - 5/9) - Finish Development: Complete all changes to the project,
         \subsection{Saving} 
         
         	\begin{itemize}
-        		\item Grid configurations can be able to be saved locally so they don't have to be recreated every time.
+        		\item Grid configurations can be saved locally to a file so they don't have to be recreated every time.
             \end{itemize}
             
             \begin{itemize}
-        		\item Entire animations can be able to be saved locally.
+        		\item Entire animations can be to be saved locally.
             \end{itemize}
             
         \subsection{Loading} 
         
-        	\begin{itemize}
-        		\item Audio files will be able to be loaded in so that they can be paired up with the animation.
-            \end{itemize}
+       % 	\begin{itemize}
+        	%	\item Audio files will be able to be loaded in so that they can be paired up with the animation.
+           % \end{itemize}
             
             \begin{itemize}
         		\item Previously saved animations can be able to be loaded, overwriting the current animation project. A dialog box will
@@ -152,30 +152,29 @@ Week Nine (5/2 - 5/9) - Finish Development: Complete all changes to the project,
             
         \subsection{Auto-save}
         	\begin{itemize}
-            	\item One file will be kept during the program's operation that will be \newline continuously overridden once every 
+            	\item One file will be kept during the program's operation that will be continuously overridden once every 
                 	five minutes. It will automatically save out the entire animation that is currently being worked on.
             \end{itemize}
  
  
 \clearpage
 \section{Goto State}
-The user will be able to move to any state.
+The user can move to any state in the animation and edit at that point.
 \subsection{Move Slider}
-Will set slider to go to any state at that particular point of time. The slider maximum time will be set to the total time it takes for all the frames.
+The slider is set to go to any state at that particular point of time. The slider maximum time will be set to the total time it takes to play through all the frames.
 \subsection{State time}
-Will give option for the user to select how long the state should play. If user doesn?t provide any value, then the default time the state stays would be set to 1 second.
+Will give option for the user to select how long each animation should play for. If user doesn't provide any value, then the default time the state stays would be set to 5 milliseconds per frame.
 \section{Dimensions}
 This section contains dimensions for grid and tower.
 \subsection{Main Grid}
-The main grid default dimensions are set to 10*20. User also has a provision to set the dimensions of the main grid area and set the cell color of the grid. Default color is set to gray.
+The main grid default dimensions are set to 10*20. User also has a provision to set the dimensions of the main grid area and set the cell color of the grid. Default color is set to black.
 \subsection{Tower Grid}
 The tower grid default dimensions are set to 4*10. The tower grid is shown with black borders inside the main grid. User can select the tower grid size and can specify the start and end rows, columns of the tower grid. The frames color will be updated only if the color is chosen inside this tower grid.
  
  	\clearpage\section{Show Preview}
         The Show Preview will allow the user to run the animation they've created in an emulator, which will give them an accurate representation of what their show will look like when played on the grid.
 	\subsection{Example}
-	 
-	\includegraphics[width=15cm,scale=0.5]{mock-up_pic}
+	 \includegraphics[scale=0.35]{mock-up_pic.png}
 	
 	\subsection{Functionality}
 	\begin{itemize}
@@ -191,16 +190,25 @@ The tower grid default dimensions are set to 4*10. The tower grid is shown with 
 		 \begin{itemize}
 		     \item Play\textbackslash Pause: Used to start and pause the preview playback. This button changes from "Play\textbackslash Pause" to "Pause" as the animation starts and to "Resume" if the animation is paused. The button will reset to its original title when the playback has finished or the Stop button is used. 
 		       \item Stop : The Stop button stops the preview playback and resets the timer to zero.
-		       \item Adjust playback speed : Both a SpinBox and a ComboBox can be used to adjust the speed of the playback. The SpinBox allows the user more control while the ComboBox can be quicker for basic use. The ComboBox playback speed presets are: 0.25x, 0.5x 0.75x, 1x, 1.25x, 1.5x, 1.75x, default is 1x speed for both adjusters.
 		       \item Quit : Allows the user to exit the program
 		       \item Add Frame : The user can add individual frames anywhere in the show.
 		       \item Delete Frame : Lets the user delete frames also from anywhere in the timeline.
 		 \end{itemize}
 	\end{itemize}
 	
-	
-	
-	
+ \clearpage\section{Timer}
+ 	The timer keeps track of how long the animation plays for. The time of each frame is exported to the .tan file so that the timing can be replicated after an animation is imported.
+	 
+	 \subsection{Time Display}
+	 \begin{itemize}
+	 \item The timer is displayed in the form mm:ss:msms, for minutes, seconds, and milliseconds. There is no display for hours under the assumption that a user wouldn't have a light show that ran for more than 59:59 minutes.
+	 \end{itemize}
+	 \subsection{Playback Speed}
+	 \begin{itemize}
+	\item Adjust playback speed : Both a SpinBox and a ComboBox can be used to adjust the speed of the playback. The SpinBox allows the user more control while the ComboBox can be quicker for basic use. The ComboBox playback speed presets are: 0.25x, 0.5x 0.75x, 1x, 1.25x, 1.5x, 1.75x, default is 1x speed for both adjusters.
+
+ 	\end{itemize}
+
  \iffalse
  \clearpage\section{Stamps}
 	The stamps function will allow the user to access previously saved images in a quick manner. 
@@ -214,7 +222,7 @@ The tower grid default dimensions are set to 4*10. The tower grid is shown with 
       \end{itemize}
    \subsection{Creating Stamps}
    The user will also be able to add stamps to the program. A "save as stamp" option will be added to the tool bar. This allows for the current frame to be added to the stamp feature.
-	\fi
+	%\fi
 	
 	
 	  \clearpage\section{Mass Editing}
@@ -224,10 +232,10 @@ The tower grid default dimensions are set to 4*10. The tower grid is shown with 
         \subsection{Paste}
         The user will be able to insert the copied frames before or after a selected frame. They will be able to do this with the same set of copied frames, until they copy a new set of frames or close the program.
         \subsection{Insert}
-        The user will be able to insert frames before or after a selected frame. They may do this as many times as desired, within reasonable limitations, and will always insert a copy of the selected frame immediately before or immediately after the selected frame.
+        The user can able to insert frames before or after a selected frame. They may do this as many times as desired, within reasonable limitations, and will always insert a copy of the selected frame immediately before or immediately after the selected frame.
 	
 	
-	\iffalse
+	%\iffalse
     \clearpage\section{Audio Integration}
     The user will be able to import audio files for playback and time-line length creation
         \subsection{Playback}
@@ -238,20 +246,20 @@ The tower grid default dimensions are set to 4*10. The tower grid is shown with 
  
  
 \clearpage\section{Color Editor}
-The user can also select from an preset selection of common colors  and assign it to a cell. He will also be able to  select any color from the a color wheel.
+The user can select from an preset selection of common colors or use an eye dropper function to pick any color on the screen and assign it to a cell. He will also be able to select any color from the a color wheel, manually.
 \subsection{Color Selection}
-There will be two modes of color selection: the color wheel, and a list of color presets.
-\subsubsection{Color Wheel}
-The user will click their mouse on the color wheel to select a base color. Then, he can adjust the saturation and gray-scale by dragging his mouse within a colored box. He will see the currently selected color in a box nearby. 
-\subsubsection{Color Presets} 
-There will be a list of twelve preset colors. The user can click these squares to automatically assign a color.
+There are two modes of color selection: the color wheel with the use of the eye dropper, and a list of color presets. 
+\subsubsection{Color Dialog}
+The user can interact with the default color picker in Qt. This picker has many features to help with customization, such as a box to slide the color selection around in.
+ \subsubsection{Color Presets} 
+There is a list of 48 preset "common colors" organized from darker to lighter. The user can click these squares to automatically assign a color. The user can also add custom colors that the program will remember while it is running.
 \subsection{Assigning Color}
-The user will be able to assign color to a square in the current state by left clicking the square with their mouse. He can clear a square of any color by right clicking on a square. If no color is assigned to a square, the default will be no color.
+The user can assign color to a square in the current state by left clicking the square with their mouse. If no color is assigned to a square, the default is no color, black.
 
 \clearpage\section{Additional Features}
 
 \subsection{Add-Ons to File Saving} A parser and IO system for the file saving will be added at a later time.
-\subsection{Preview Slider} The Preview window will have a "preview area" that shows the timeline of the current show. The preview area will also have a slider which can be dragged back and forth along the timeline to view the preview playback.
+\subsection{Preview Slider} The main window will have a "preview area" that shows the timeline of the current show. The preview area will also have a slider which can be dragged back and forth along the timeline to view the preview playback.
 \iffalse
  \subsection {Sync with Audio}
 			 A simple checkbox to indicate whether the playback will start the designated audio track when the preview playback is started. 

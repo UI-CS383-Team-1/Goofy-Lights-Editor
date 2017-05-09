@@ -184,7 +184,7 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>770</x>
+      <x>780</x>
       <y>360</y>
       <width>71</width>
       <height>16</height>
@@ -237,7 +237,7 @@
       <x>10</x>
       <y>650</y>
       <width>1261</width>
-      <height>32</height>
+      <height>36</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="Buttons">
@@ -269,9 +269,25 @@
       </widget>
      </item>
      <item>
+      <widget class="QDoubleSpinBox" name="SpeedChangeSpinBox">
+       <property name="maximum">
+        <double>100.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+       <property name="value">
+        <double>1.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QComboBox" name="SpeedDropdown">
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change the speed of the animation playback&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="currentText">
+        <string>1</string>
        </property>
        <item>
         <property name="text">
