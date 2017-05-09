@@ -53,7 +53,7 @@ private:
 
     unsigned long int co = 0;
 
-    float test;
+    double test = 1;
 
     bool isPlaying = false;
 
@@ -62,6 +62,8 @@ private:
     QWidget *animationFrame;
 
     QTime time2;
+
+    QTime totalTime, sinceStart;
 
     QTimer *timer;
 
@@ -122,6 +124,7 @@ private slots:
 
     void update_screen();
 
+    void on_SpeedChangeSpinBox_valueChanged(double arg1);
 };
 
 #endif // MAINWINDOW_H

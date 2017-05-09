@@ -18,6 +18,7 @@
 #include <QRect>
 #include <QScrollArea>
 #include <QSpacerItem>
+#include <QDoubleSpinBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->SpeedDropdown->setCurrentIndex(3);
+
 
     timer = new QTimer(this);
 
@@ -388,7 +390,7 @@ void MainWindow::update_screen(){
         }
     }
 
-    for(int i = 1; i < animation.size(); i++){
+    for(unsigned long int i = 1; i < animation.size(); i++){
         //Remove the spacer to allow for addition of frames
         //Create new state to add to the animation
         Grid temp;
@@ -628,7 +630,7 @@ void MainWindow::on_QuitButton_clicked()
 
 void MainWindow::on_PrintButton_clicked()
 {
-    for(int i = 0; i < animation.size(); i++){
+    for(unsigned long int i = 0; i < animation.size(); i++){
         for(int r = 0; r < grid->getGridRowCount(); r++){
             for(int c = 0; c < grid->getGridColumnCount(); c++){
                 QColor color = animation[i].getCellColor(r, c);
@@ -711,11 +713,7 @@ void MainWindow::setAnimation(){
 //Play back through the slides
 void MainWindow::on_PlayButton_clicked()
 {
-
-    countDown = 100 / test; // The speed of the count down is equal to the playback speed times 1/10 of a second
-
-    //Start the timer
-    time2.start();
+    countDown = 100 / test;
 
     int width = grid->getGridColumnCount();
     int height = grid->getGridRowCount();
@@ -723,35 +721,30 @@ void MainWindow::on_PlayButton_clicked()
     // Switch between Play and Pause
     if (isPlaying)
     {
-      //  if(!time2.isNull())
-        //   {
-              //  int t = time2.elapsed();
-               //std::cout << "t " << time2.elapsed() << "\n";
-//                accum += t;
-  //              std::cout << "accum " << accum << "\n";
-
-          // }
         isPlaying = false;
         ui->PlayButton->setText("Resume");
-
         timer->stop();
+        totalTime = totalTime.addMSecs(sinceStart.restart());
     }
     else
     {
-        isPlaying = true;
 
+        //Start the timer
+        totalTime.start();
+
+        isPlaying = true;
         ui->PlayButton->setText("Pause");
-        showTime();
-        connect(timer, SIGNAL(timeout ()), this, SLOT(showTime()));
 
         if ( co == animation.size() || co == 0){
             lastTimeThrough = 0;
-             accum = 0;
         }
-        //else
-          //  if(!time2.isNull())
-            //    time2.restart();
-        timer->start(100 /  test);
+        else
+            sinceStart.restart();
+
+        showTime();
+        connect(timer, SIGNAL(timeout ()), this, SLOT(showTime()));
+
+        timer->start(10);
 
         //Play through all frames
         for (co = lastTimeThrough; co < animation.size(); co++){
@@ -777,17 +770,14 @@ void MainWindow::on_PlayButton_clicked()
                 }
             }
              delay(countDown);
-             //t = time2.elapsed();
-             //accum += t;
-
         }
+        timer->stop();
     }
-   // std::cout << "t " << t << "\n";
-    //std::cout << "accum " << accum << "\n";
+
+    if(isPlaying)
+        ui->PlayButton->setText("Play/Pause");
 
     isPlaying = false;
-    timer->stop();
-    ui->PlayButton->setText("Play/Pause");
 }
 
 //Delay the playback
@@ -831,7 +821,7 @@ void MainWindow::on_StopButton_clicked()
     lastTimeThrough = 0;
     ui->PlayButton->setText("Play/Pause");
 
-    time2.restart();
+    totalTime.restart();
     timer->stop();
     showTime();
     connect(timer, SIGNAL(timeout ()), this, SLOT(showTime()));
@@ -1039,7 +1029,7 @@ void MainWindow::on_SpeedDropdown_currentIndexChanged(int)
 
 void MainWindow::showTime(){
 
-            int milsecs = (time2.elapsed()) / 10;       //+ accum
+            int milsecs = (totalTime.elapsed()) / 10;
             int secs = (milsecs / 100);
             int mins = (secs / 60) % 60;
             milsecs = milsecs % 100;
@@ -1050,3 +1040,7 @@ void MainWindow::showTime(){
 
 }
 
+void MainWindow::on_SpeedChangeSpinBox_valueChanged(double arg1)
+{
+    test = arg1;
+}
