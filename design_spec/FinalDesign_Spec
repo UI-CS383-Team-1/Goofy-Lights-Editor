@@ -175,7 +175,7 @@ The tower grid default dimensions are set to 4*10. The tower grid is shown with 
         The Show Preview will allow the user to run the animation they've created in an emulator, which will give them an accurate representation of what their show will look like when played on the grid.
 	\subsection{Example}
 	 
-	\includegraphics[width=15cm,scale=0.5]{mock-up_pic}
+
 	
 	\subsection{Functionality}
 	\begin{itemize}
@@ -241,12 +241,12 @@ The tower grid default dimensions are set to 4*10. The tower grid is shown with 
 The user can also select from an preset selection of common colors  and assign it to a cell. He will also be able to  select any color from the a color wheel.
 \subsection{Color Selection}
 There will be two modes of color selection: the color wheel, and a list of color presets.
-\subsubsection{Color Wheel}
-The user will click their mouse on the color wheel to select a base color. Then, he can adjust the saturation and gray-scale by dragging his mouse within a colored box. He will see the currently selected color in a box nearby. 
+\subsubsection{Color Dialog}
+The user will interact with a color picker. This picker will have many features to help with customization, such as a box to slide the color selection around in.
 \subsubsection{Color Presets} 
 There will be a list of twelve preset colors. The user can click these squares to automatically assign a color.
 \subsection{Assigning Color}
-The user will be able to assign color to a square in the current state by left clicking the square with their mouse. He can clear a square of any color by right clicking on a square. If no color is assigned to a square, the default will be no color.
+The user will be able to assign color to a square in the current state by left clicking the square with their mouse. If no color is assigned to a square, the default will be no color.
 
 \clearpage\section{Additional Features}
 
