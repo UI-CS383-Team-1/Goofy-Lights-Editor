@@ -6,14 +6,16 @@
 \usepackage{amssymb,amsfonts,textcomp}
 \usepackage{color}
 \usepackage{array}
+\usepackage{graphicx}
+\usepackage{pdfpages}				
 \usepackage{supertabular}
 \usepackage{hhline}
 \usepackage{hyperref}
 
+
+
 \begin{document}
  
- 
-
 \bigskip
 
 \clearpage{\centering\selectlanguage{english}\bfseries\color{black}
@@ -26,7 +28,7 @@ DESIGN SPECIFICATION FOR
 
  \bigskip
 {\centering\selectlanguage{english}\bfseries\color{black}
-Date: 03/30/17
+Date: 04/25/17
 \par}
 
 
@@ -90,32 +92,32 @@ TABLE OF CONTENTS
 
 
 \clearpage\section{General}
-This Design Specification for Goofy Lights Editor outlines the anticipated program functions that will be needed. 
+This Design Specification for Goofy Lights Editor outlines program functions that have been added up to now. The sub-teams decided in Week Three have remained approximately the same through out the course of this project. However some of the teams compartmentalized further as the individuals worked on their own areas of the sub-projects.  
 
 
 \bigskip
 \subsection{Timeline}
-This timeline is a rough estimate for the future development of the Goofy Lights Editor Project for the Goofy Glasses.\ The timeline will be subject to change over time.
+This timeline is a rough estimate for the future development of the Goofy Lights Editor Project for the Goofy Glasses.\ The timeline has changed over the course  of the semester.
 
 \begin{itemize}
 \item
-Week One (3/6 - 3/13) - Complete rough draft of Design Specification. 
+Week One (3/6 - 3/14) - Complete rough draft of Design Specification. 
 \item
-Week Two (3/13 - 3/20) - Spring Break 
+Week Two (3/14 - 3/21) - Spring Break 
 \item
-Week Three (3/20 - 3/27) - Initial Development (First Sprint): Sections of the editor were divided amongst team members. The sections were divided into: User Interface Shell - Max and Tim, File Save/load - Garret and Wyatt, Grid - Homaja and Sam, State changer - Hanna and Josh.
+Week Three (3/21 - 3/28) - Initial Development (First Sprint): Sections of the editor were divided amongst team members. The sections were divided into: User Interface Shell - Max and Tim, File Save/load - Garret and Wyatt, Grid - Homaja and Sam, State changer - Hanna and Josh.
 \item
-Week Four (3/27 - 4/3) - Continued Development: Each sub-team continues developing their individual section.  Keep documentation up to date.
+Week Four (3/28 - 4/4) - Continued Development (Second Sprint): Each sub-team continues developing their individual section. Start Working on the whole of the user interface. Keep documentation up to date.
 \item
-Week Five (4/3 - 4/10) - Continued Development: Complete build-in user interface using Qt by bringing all of the pieces together.
+Week Five (4/4 - 4/11) - Continued Development: Complete build-in user interface using Qt by bringing all of the pieces together.
 \item
-Week Six (4/10 - 4/17) - Continued Development: Add in extra developments, such as; color wheel, synced audio, etc...
+Week Six (4/11 - 4/18) - Continued Development: Continue working on the basic functions and add in extra developments, such as; color wheel, updated user interface,  etc...
 \item
-Week Seven 4/17 - 4/24) - Continued Development: Finish the previous sprint and put the pieces into a prototype for presentation..
+Week Seven 4/18 - 4/25) - Continued Development: Continue working on the functions from week six. Work on individual bugs in the program.
 \item
-Week Eight (4/24 - 5/1) - Continued Development: Present the prototype and update all documentation. 
+Week Eight (4/25 - 5/2) - Continued Development: Presentation to class and continue working out bugs and small errors. 
 \item
-Week Nine (5/1 - 5/8) - Finish Development: Have the final program with full documentation, run final testing, and turn in project.
+Week Nine (5/2 - 5/9) - Finish Development: Complete all changes to the project, bring documentation up to date and turn in finished project.
 
 
 \end{itemize}
@@ -155,40 +157,51 @@ Week Nine (5/1 - 5/8) - Finish Development: Have the final program with full doc
             \end{itemize}
  
  
-\clearpage \section{Goto State}
-The user will be able to scroll through any of the existing states, as well as add to or delete any of the current states.
+\clearpage
+\section{Goto State}
+The user will be able to move to any state.
 \subsection{Move Slider}
 Will set slider to go to any state at that particular point of time. The slider maximum time will be set to the total time it takes for all the frames.
 \subsection{State time}
-Will give option for the user to select how long the state should play and give the option to speed up the runtime. If user doesn't provide any value, then the default time the state stays would be set to 1 second.
+Will give option for the user to select how long the state should play. If user doesn?t provide any value, then the default time the state stays would be set to 1 second.
 \section{Dimensions}
-This section contains dimensions for the adjustable grid.% and tower.
-\subsection{Grid}
-There will be an option for user to select the grid dimensions and the condition would be set to provide the dimensions greater than tower grid. If the user doesn't provide dimensions, then the default would be set to 20*10.
-%\subsection{Tower}
-%The tower grid dimensions will be 4*10.
- 
+This section contains dimensions for grid and tower.
+\subsection{Main Grid}
+The main grid default dimensions are set to 10*20. User also has a provision to set the dimensions of the main grid area and set the cell color of the grid. Default color is set to gray.
+\subsection{Tower Grid}
+The tower grid default dimensions are set to 4*10. The tower grid is shown with black borders inside the main grid. User can select the tower grid size and can specify the start and end rows, columns of the tower grid. The frames color will be updated only if the color is chosen inside this tower grid.
  
  	\clearpage\section{Show Preview}
-        The Show Preview will allow the user to run the animation they've created in an emulator, which will give them an accurate representation of what their show will look like when played on the grid size they've selected.
+        The Show Preview will allow the user to run the animation they've created in an emulator, which will give them an accurate representation of what their show will look like when played on the grid.
+	\subsection{Example}
+	 
+	\includegraphics[width=15cm,scale=0.5]{mock-up_pic}
+	
 	\subsection{Functionality}
 	\begin{itemize}
-		\item Move Tiles
+		\item Show the Preview in the main window
+		\begin{itemize}
+		    \item The "Play/Pause" button starts the playback in the main grid area.
+		\end{itemize}
+				\item Move Tiles
 			\begin{itemize}
-				\item A control box which allows the user to shift their grid size (if smaller that the full 20x10 grid) around the main grid.
-			\end{itemize}
+				\item The layout of directional controls allows the user to shift the main grid. Up, down, left and right, as well as diagonals are included in these shift buttons.
+				\end{itemize}
 			\item Manage Preview Playback
 		 \begin{itemize}
-		     \item Start\textbackslash Pause : The traditional Play triangle and double-bars Pause button to start and pause the preview playback.
-		     \item Stop : Traditional Stop button with square icon to stop the preview playback.
-		       \item Adjust playback speed : A few playback speed presets (0.25x, 0.5x 0.75x, 1x, 1.25x, 1.5x, 1.75x), default is 1x speed.
+		     \item Play\textbackslash Pause: Used to start and pause the preview playback. This button changes from "Play\textbackslash Pause" to "Pause" as the animation starts and to "Resume" if the animation is paused. The button will reset to its original title when the playback has finished or the Stop button is used. 
+		       \item Stop : The Stop button stops the preview playback and resets the timer to zero.
+		       \item Adjust playback speed : Both a SpinBox and a ComboBox can be used to adjust the speed of the playback. The SpinBox allows the user more control while the ComboBox can be quicker for basic use. The ComboBox playback speed presets are: 0.25x, 0.5x 0.75x, 1x, 1.25x, 1.5x, 1.75x, default is 1x speed for both adjusters.
 		       \item Quit : Allows the user to exit the program
-		       \item Add Frame : The user can add individual frames.
-		       \item Delete Frame : Lets the user delete frames.
+		       \item Add Frame : The user can add individual frames anywhere in the show.
+		       \item Delete Frame : Lets the user delete frames also from anywhere in the timeline.
 		 \end{itemize}
 	\end{itemize}
 	
- 
+	
+	
+	
+ \iffalse
  \clearpage\section{Stamps}
 	The stamps function will allow the user to access previously saved images in a quick manner. 
 	
@@ -201,6 +214,7 @@ There will be an option for user to select the grid dimensions and the condition
       \end{itemize}
    \subsection{Creating Stamps}
    The user will also be able to add stamps to the program. A "save as stamp" option will be added to the tool bar. This allows for the current frame to be added to the stamp feature.
+	\fi
 	
 	
 	  \clearpage\section{Mass Editing}
@@ -212,12 +226,15 @@ There will be an option for user to select the grid dimensions and the condition
         \subsection{Insert}
         The user will be able to insert frames before or after a selected frame. They may do this as many times as desired, within reasonable limitations, and will always insert a copy of the selected frame immediately before or immediately after the selected frame.
 	
+	
+	\iffalse
     \clearpage\section{Audio Integration}
     The user will be able to import audio files for playback and time-line length creation
         \subsection{Playback}
         The user will be able the have the audio file play at the same time as a preview of their animation to give an accurate representation of the final output
         \subsection{Time-line Length}
         The user will be able to use the duration of the audio file to create an accurate working length for creating their animation 
+ \fi
  
  
 \clearpage\section{Color Editor}
@@ -235,6 +252,13 @@ The user will be able to assign color to a square in the current state by left c
 
 \subsection{Add-Ons to File Saving} A parser and IO system for the file saving will be added at a later time.
 \subsection{Preview Slider} The Preview window will have a "preview area" that shows the timeline of the current show. The preview area will also have a slider which can be dragged back and forth along the timeline to view the preview playback.
+\iffalse
+ \subsection {Sync with Audio}
+			 A simple checkbox to indicate whether the playback will start the designated audio track when the preview playback is started. 
+
+\subsection{Paint Brush Coloring}
+The user will be able to hold left click and drag their mouse over squares. This will paint all the squares it touches. The user can also hold right click to erase the squares.
+\fi
 \subsection{Assigning Personal Presets}
 The user will be able to assign personal colors to the presets. The user will select a color on the color wheel. Then, the user will right click on a preset to assign the current color to that preset.
 
