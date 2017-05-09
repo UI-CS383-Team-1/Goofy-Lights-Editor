@@ -11,7 +11,7 @@
 
 namespace Ui {
 class MainWindow;
-}   
+}
 
 class MainWindow : public QMainWindow
         {
@@ -26,6 +26,8 @@ public:
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;
+    void keyPressEvent( QKeyEvent *k ) override;
+    void keyReleaseEvent(QKeyEvent *k) override;
 
 private:
 
@@ -39,7 +41,15 @@ private:
 
     QGridLayout *mainFrame;
 
+    QWidget *mainWidget;
+
     Grid *grid;
+
+
+    //std::vector<QPushButton> *allCells;   //to store all grid cells
+    //std::vector<QPushButton> *cells;   //to store active grid cells
+
+    bool isShiftPressed = false;
 
     int currentAnimation = 0;
 
@@ -64,6 +74,16 @@ private:
     QTime time2;
 
     QTimer *timer;
+
+    void resetActiveGrid();
+
+    void setActiveGrid();
+
+    //specifying default grid selection in 10*20 main grid
+    int startRow = 3;
+    int endRow = 8;
+    int startCol = 8;
+    int endCol = 13;
 
 private slots:
     void on_actionQuit_triggered();
@@ -117,10 +137,6 @@ private slots:
     void on_SpeedDropdown_currentIndexChanged(int);
 
     void showTime();
-
-    void clear_animation();
-
-    void update_screen();
 
 };
 
