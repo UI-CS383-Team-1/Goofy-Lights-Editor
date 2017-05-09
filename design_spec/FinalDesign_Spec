@@ -171,19 +171,8 @@ There will be an option for user to select the grid dimensions and the condition
  
  	\clearpage\section{Show Preview}
         The Show Preview will allow the user to run the animation they've created in an emulator, which will give them an accurate representation of what their show will look like when played on the grid size they've selected.
-	\subsection{Mock-up}
-	   % ADD Screenshot later
-	   \{insert screenshot after final version\}
 	\subsection{Functionality}
 	\begin{itemize}
-		\item Open Preview window or section 
-		\begin{itemize}
-		    \item A button or menu option that will bring up the Show Preview window.
-		\end{itemize}
-		\item Adjust playback grid size
-		\begin{itemize}
-		    \item The playback grid will default to whatever size the user initially set their show to. But there will be a way (inputs for number of rows and number of columns) for the user to change the grid size so they can see what their show might look like on smaller or larger grids.
-		\end{itemize}
 		\item Move Tiles
 			\begin{itemize}
 				\item A control box which allows the user to shift their grid size (if smaller that the full 20x10 grid) around the main grid.
@@ -245,12 +234,7 @@ The user will be able to assign color to a square in the current state by left c
 \clearpage\section{Additional Features}
 
 \subsection{Add-Ons to File Saving} A parser and IO system for the file saving will be added at a later time.
-\subsection{Preview Slider} The Preview window will have a "preview area" that shows the timeline of the current show. The preview area will also have a slider which can be dragged back and forth along the timeline to control the preview playback.
- \subsection {Sync with Audio}
-			 A simple checkbox to indicate whether the playback will start the designated audio track when the preview playback is started. 
-
-\subsection{Paint Brush Coloring}
-The user will be able to hold left click and drag their mouse over squares. This will paint all the squares it touches. The user can also hold right click to erase the squares.
+\subsection{Preview Slider} The Preview window will have a "preview area" that shows the timeline of the current show. The preview area will also have a slider which can be dragged back and forth along the timeline to view the preview playback.
 \subsection{Assigning Personal Presets}
 The user will be able to assign personal colors to the presets. The user will select a color on the color wheel. Then, the user will right click on a preset to assign the current color to that preset.
 
