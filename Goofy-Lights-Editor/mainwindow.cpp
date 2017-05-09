@@ -282,45 +282,67 @@ void MainWindow::on_actionLoad_triggered()
                 if (QString::compare(tmp,"0.4") != 0)
                 {
                     QMessageBox::information(this, tr("Extension"), ".tan or .tan2");
+                    //data.close();
+                    //return;
+                }
+                QMessageBox::information(this, tr("Success"), "File get!");
+                tmp = data.readLine(); //wmv storage
+                QString preparse(fout.readAll());
+                QStringList splitFile;
+                qDebug() << preparse;
+                splitFile = preparse.split(QRegularExpression("\\s+"));
+                int showFrames = splitFile.first().toInt();
+                splitFile.removeFirst();
+                int showHeight = splitFile.first().toInt();
+                if (showHeight > grid->getGridColumnCount())
+                {
+                    QMessageBox::information(this, tr("Error"), "File height too large!");
                     data.close();
                     return;
                 }
-                QMessageBox::information(this, tr("Success"), "File get!");
-                /*tmp = data.readLine(); //wmv storage
-                QString preparse(fout.readAll());
-                QStringList parsed;
-                parsed = preparse.split(QRegularExpression("\\s+"));
-                fin << "Number of Frames: " << parsed.first() << "\r\n";
-                int showFrames = parsed.first().toInt();
-                parsed.removeFirst();
-                fin << "Height of lightshow: " << parsed.first() << "\r\n";
-                int showHeight = parsed.first().toInt();
-                parsed.removeFirst();
-                fin << "Width of lightshow: " << parsed.first() << "\r\n";
-                int showWidth = parsed.first().toInt();
-                parsed.removeFirst();
-                int totalpoints = showWidth * showHeight;
-                fin << "Total number of grid spaces per frame: " << totalpoints << "\r\n";
-
+                splitFile.removeFirst();
+                //int drawColUpper = (showHeight/2) + ((grid->getGridColumnCount())/2);
+                //int drawColLower = ((grid->getGridColumnCount())/2) - (showHeight/2);
+                int showWidth = splitFile.first().toInt();
+                if (showWidth > grid->getGridRowCount())
+                {
+                    QMessageBox::information(this, tr("Error"), "File width too large!");
+                    data.close();
+                    return;
+                }
+                //int drawRowUpper = (showWidth/2) + ((grid->getGridRowCount())/2);
+                //int drawRowLower = ((grid->getGridRowCount())/2) - (showWidth/2);
+                splitFile.removeFirst();
+                QColor tmpColor;
                 for (int framepos = 0; framepos < showFrames; framepos++)
                 {
-                    fin << "Frame " << framepos+1 << " time: " << parsed.first() << "\r\n";
-                    parsed.removeFirst();
-                    fin << "RGB values:" << "\r\n";
-                    for (int col = 0; col < showHeight; col++)
+                    Grid tmpGrid(10,20);
+                    tmpGrid.setTime(splitFile.first().toInt());
+                    splitFile.removeFirst();
+                    for(int r = 0; r < tmpGrid.getGridRowCount(); r++)
                     {
-                        for (int row = 0; row < showWidth; row++)
+                        for(int c = 0; c < tmpGrid.getGridColumnCount(); c++)
                         {
-                            for (int rgb = 0; rgb < 3; rgb++)
+                            if((c < showHeight) && (r < showWidth))
                             {
-                                fin << parsed.first() << ',';
-                                parsed.removeFirst();
+                                tmpColor.setRed(splitFile.first().toInt());
+                                splitFile.removeFirst();
+                                tmpColor.setGreen(splitFile.first().toInt());
+                                splitFile.removeFirst();
+                                tmpColor.setBlue(splitFile.first().toInt());
+                                splitFile.removeFirst();
+                                tmpGrid.setCellColor(tmpColor,r,c);
                             }
-                            fin << "; ";
+                            else
+                            {
+                                tmpColor.setRgb(0,0,0);
+                                tmpGrid.setCellColor(tmpColor,r,c);
+                            }
                         }
-                        fin << "\r\n";
                     }
-                }*/
+                    animation.push_back(tmpGrid);
+                }
+                update_screen();
             }
 
          }
