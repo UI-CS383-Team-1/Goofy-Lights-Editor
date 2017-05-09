@@ -143,7 +143,7 @@ void MainWindow::assignColor(){
     QWidget *w = animationLayout->itemAt(currentAnimation)->widget();
     QLayout *layout = w->layout();
 
-    QWidget *button = layout->itemAt(x * 20 + y)->widget();
+    QWidget *button = layout->itemAt(x * grid->getGridColumnCount() + y)->widget();
 
     //Set color to current color
     if (pButton) // this is the type we expect
@@ -237,21 +237,25 @@ void MainWindow::on_actionLoad_triggered()
 
             if (filename.endsWith("gle"))
             {
+                clear_animation();
                 animation.clear();
+                std::cout << "red" << std::endl;
                 QMessageBox::information(this, tr("Extension"), ".gle");
                 QString wholeFile(data.readAll());
+                qDebug() << wholeFile;
                 QStringList splitFile = wholeFile.split(QRegularExpression("\\s+"));
                 int numFrames = splitFile.first().toInt();
                 splitFile.removeFirst();
-                Grid tmpGrid(10,20);
+                //Grid tmpGrid(10,20);
                 QColor tmpColor;
                 for (int i = 0; i < numFrames; i++)
                 {
+                    Grid tmpGrid(10,20);
                     tmpGrid.setTime(splitFile.first().toInt());
                     splitFile.removeFirst();
-                    for(int r; r < tmpGrid.getGridRowCount(); r++)
+                    for(int r = 0; r < tmpGrid.getGridRowCount(); r++)
                     {
-                        for(int c; c < tmpGrid.getGridColumnCount(); c++)
+                        for(int c = 0; c < tmpGrid.getGridColumnCount(); c++)
                         {
                             tmpColor.setRed(splitFile.first().toInt());
                             splitFile.removeFirst();
@@ -264,6 +268,7 @@ void MainWindow::on_actionLoad_triggered()
                     }
                     animation.push_back(tmpGrid);
                 }
+                update_screen();
             }
             else if (filename.endsWith("tan") || filename.endsWith("tan2"))
             {
@@ -318,6 +323,108 @@ void MainWindow::on_actionLoad_triggered()
     }
 }
 
+void MainWindow::clear_animation(){
+    //Clear animation
+    while(animation.size() > 1){
+        on_DeleteFrameButton_clicked();
+    }
+    on_DeleteFrameButton_clicked();
+}
+
+void MainWindow::update_screen(){
+
+    //Remove spacer
+    qDebug() << animationLayout->count() << " " << animation.size();
+    QWidget *tmp = animationLayout->itemAt(1)->widget();
+    animationLayout->removeWidget(animationLayout->itemAt(1)->widget());
+    delete tmp;
+
+    Grid initFrame = animation[0];
+    QWidget *w = animationLayout->itemAt(0)->widget();
+    QLayout *layout = w->layout();
+
+    initFrame.setAllCellColor(QColor(0, 0, 0));
+    grid->setAllCellColor(QColor(0, 0, 0));
+
+    //Clear 2d array and QGridLayout of color
+    for(int r = 0; r < grid->getGridRowCount(); r++){
+        for(int c = 0; c < grid->getGridColumnCount(); c++){
+
+            QWidget *button = layout->itemAt(r * grid->getGridColumnCount() + c)->widget();
+
+            QColor *color = new QColor(animation[0].getCellColor(r,c).red(),
+                                       animation[0].getCellColor(r,c).green(),
+                                       animation[0].getCellColor(r,c).blue());
+            QString qss = QString("background-color: %1").arg(color->name());
+
+            mainFrame->itemAtPosition(r, c)->widget()->setStyleSheet(qss);
+            button->setStyleSheet(qss);
+        }
+    }
+
+    for(int i = 1; i < animation.size(); i++){
+        //Remove the spacer to allow for addition of frames
+        //Create new state to add to the animation
+        Grid temp;
+        temp.setTime(animation.size() * 5);
+
+        for(int r = 0; r < grid->getGridRowCount(); r++){
+            for(int c = 0; c < grid->getGridColumnCount(); c++){
+                QColor *color = new QColor(animation[i].getCellColor(r,c).red(),
+                                           animation[i].getCellColor(r,c).green(),
+                                           animation[i].getCellColor(r,c).blue());
+                temp.setCellColor(*color, r, c);
+            }
+        }
+
+        //Add the new state to the back of the animation
+        //TO DO: Add at any point
+        //animation.insert(animation.begin() + currentAnimation + 1, temp);
+
+        //Add grid to animation
+        QWidget *w = new QWidget;
+        QGridLayout *frame = new QGridLayout;
+        w->setObjectName(QString::number(currentAnimation+1));
+        qDebug() << QString("Adding widget at: ") << QString::number(currentAnimation+1);
+        animationLayout->insertWidget(currentAnimation + 1, w);
+        //animationLayout->addWidget(w);
+        createGrid(w, frame, false);
+
+        //Copy 2d array to frame in animationArea
+        for(int r = 0; r < grid->getGridRowCount(); r++){
+            for(int c = 0; c < grid->getGridColumnCount(); c++){
+                QColor *color = new QColor();
+
+                //Displays black as gray.
+                if(temp.getCellColor(r, c) == QColor(0,0,0)){
+                    //color->setRgb(187, 187, 187);
+                    color->setRgb(0,0,0);
+                }
+                else{
+                    *color = temp.getCellColor(r, c);
+                }
+                QString qss = QString("background-color: %1").arg(color->name());
+                frame->itemAtPosition(r, c)->widget()->setStyleSheet(qss);
+            }
+        }
+        currentAnimation++;
+
+
+    }
+
+    //If the animation is still not enough to fill, add spacer
+    animationLayout->addSpacing(10000);
+
+    //Update animation area
+    ui->animationArea->update();
+    unsigned int j = 0;
+    for(; j < animation.size() - 1; j++){
+        qDebug() << j << " " << animationLayout->count() << " " << animation.size();
+        QWidget *clicked = animationLayout->itemAt(j)->widget();
+        clicked->setObjectName(QString::number(j));
+    }
+}
+
 void MainWindow::on_actionExport_triggered()
 {
     QString filename=QFileDialog::getSaveFileName(this,
@@ -368,8 +475,8 @@ void MainWindow::on_AddFrameButton_clicked()
     createGrid(w, frame, false);
 
     //Copy 2d array to frame in animationArea
-    for(int r = 0; r < 10; r++){
-        for(int c = 0; c < 20; c++){
+    for(int r = 0; r < grid->getGridRowCount(); r++){
+        for(int c = 0; c < grid->getGridColumnCount(); c++){
             QColor *color = new QColor();
 
             //Displays black as gray.
@@ -493,17 +600,16 @@ void MainWindow::on_QuitButton_clicked()
 
 void MainWindow::on_PrintButton_clicked()
 {
-    //Test button for animation saving
-    QMessageBox::information(this, "Info", "Hello");
-    for(unsigned int i = 0; i < animation.size(); i++){
-        std::cout << "Time stamp: " << animation[i].getTime() << std::endl;
+    for(int i = 0; i < animation.size(); i++){
         for(int r = 0; r < grid->getGridRowCount(); r++){
             for(int c = 0; c < grid->getGridColumnCount(); c++){
-                QColor color = animation[i].getCellColor(r,c);
+                QColor color = animation[i].getCellColor(r, c);
                 std::cout << color.red() << " " << color.green() << " " << color.blue() << " ";
             }
             std::cout << std::endl;
         }
+        std::cout << std::endl;
+        std::cout << std::endl;
     }
 }
 
@@ -521,6 +627,8 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
             break;
         }
     }
+
+    if(i == animation.size()) return;
 
     //Set grid and animation to selected frame
     currentAnimation = i;

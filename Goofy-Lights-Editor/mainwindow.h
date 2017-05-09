@@ -118,6 +118,10 @@ private slots:
 
     void showTime();
 
+    void clear_animation();
+
+    void update_screen();
+
 };
 
 #endif // MAINWINDOW_H
